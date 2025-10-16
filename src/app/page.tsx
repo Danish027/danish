@@ -5,7 +5,7 @@ export default function Home() {
     <div className="max-w-2xl mx-auto">
       <h1 className="font-semibold mb-8">Mohammed Danish</h1>
 
-      <div className="space-y-6 text-base leading-loose text-gray-600">
+      <div className="space-y-6 leading-loose text-gray-700">
         <p>
           I am a developer at{" "}
           <Link
