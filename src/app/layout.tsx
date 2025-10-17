@@ -10,6 +10,8 @@ import localFont from "next/font/local";
 
 import Navbar from "../components/navbar";
 import "./globals.css";
+import Image from "next/image";
+import flower from "@/public/assets/4.png";
 
 const sans = localFont({
   src: "../_fonts/InterVariable.woff2",
@@ -31,8 +33,8 @@ const mono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s - Danish",
-    default: "Danish",
+    template: "%s - Mohammed Danish",
+    default: "Mohammed Danish",
   },
 };
 
@@ -71,6 +73,9 @@ export default function RootLayout({
                 {children}
               </article>
             </ViewTransition>
+            <div className="hidden md:block fixed bottom-0 right-0">
+              <Image src={flower} alt="flower" width={300} height={300} />
+            </div>
           </main>
         </div>
         <Analytics />

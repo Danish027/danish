@@ -3,12 +3,12 @@ import { ProjectCard } from "@/src/components/project-card";
 const projects = [
   {
     name: "Seashell",
-    role: "Founding Engineer",
+    role: "Lead Frontend Developer",
     timeline: "2023 - Current",
     shortDescription:
-      "Packaging's three-sided marketplace in the United States",
+      "Packaging marketplace connecting clients, suppliers, and liaisons",
     description:
-      "Built the core platform from the ground up, connecting suppliers, converters, and buyers in the packaging industry. Developed features for real-time pricing, order management, and marketplace interactions.",
+      "Led frontend development for a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
     techStack:
       "Next.js, TypeScript, Tailwind, tRPC, React Query, Drizzle ORM, Framer Motion",
     url: "https://seashellpack.com",
@@ -18,9 +18,10 @@ const projects = [
     name: "Invoiceapp",
     role: "Founder",
     timeline: "2022 - Current",
-    shortDescription: "Platform to create invoices and track payments",
+    shortDescription:
+      "Business management platform for invoicing, estimates, and payments",
     description:
-      "Built to help freelancers and small businesses manage their invoicing needs efficiently. Designed and developed the entire platform with features for invoice generation, payment tracking, and client management.",
+      "Built a platform for businesses to manage invoices, estimates, payment tracking, and client relationships. Features include prebuilt templates for quick invoice creation, AI-powered invoicing, and workflows designed so any task takes just a few clicks. Added detailed analytics with custom filters and fields, error tracking, financial year switching, and team collaboration.",
     techStack: "Next.js, TypeScript, Tailwind, tRPC, React Query, Drizzle ORM",
     url: "https://invoiceapp.io",
     logo: "/assets/invoiceapp.png",

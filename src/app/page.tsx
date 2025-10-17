@@ -7,22 +7,26 @@ export default function Home() {
 
       <div className="space-y-6 leading-loose text-gray-700">
         <p>
-          I am a developer at{" "}
+          I am a software developer based in{" "}
+          <span className="font-medium">Bangalore, India</span>, currently
+          working at{" "}
           <Link
             href="https://seashellpack.com"
             className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
           >
             Seashell
           </Link>{" "}
-          and founder of{" "}
+          and also the founder of{" "}
           <Link
             href="https://invoiceapp.io"
             className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
           >
             Invoiceapp
           </Link>
-          . I am passionate about building technology that makes a meaningful
-          impact on people's lives.
+          . I enjoy building thoughtful, user-focused products and modern web
+          experiences that make a meaningful impact. I am open to remote work
+          opportunities and enjoy collaborating with teams across different
+          domains.
         </p>
 
         <p>
