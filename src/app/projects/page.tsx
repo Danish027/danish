@@ -3,12 +3,12 @@ import { ProjectCard } from "@/src/components/project-card";
 const projects = [
   {
     name: "Seashell",
-    role: "Developer",
+    role: "Full Stack Developer",
     timeline: "2023 - Current",
     shortDescription:
       "Packaging marketplace connecting clients, suppliers, and liaisons",
     description:
-      "Led frontend development for a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
+      "Built a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
     techStack:
       "Next.js, TypeScript, Tailwind, tRPC, React Query, Drizzle ORM, Framer Motion",
     url: "https://seashellpack.com",
