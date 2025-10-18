@@ -3,7 +3,7 @@ import { ProjectCard } from "@/src/components/project-card";
 const projects = [
   {
     name: "Seashell",
-    role: "Lead Frontend Developer",
+    role: "Founding Engineer",
     timeline: "2023 - Current",
     shortDescription:
       "Packaging marketplace connecting clients, suppliers, and liaisons",

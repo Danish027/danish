@@ -74,7 +74,7 @@ export default function RootLayout({
               </article>
             </ViewTransition>
             <div className="hidden md:block fixed bottom-0 right-0">
-              <Image src={flower} alt="flower" width={300} height={300} />
+              {/* <Image src={flower} alt="flower" width={300} height={300} /> */}
             </div>
           </main>
         </div>
