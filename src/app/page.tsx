@@ -41,8 +41,9 @@ export default function Home() {
           <span className="font-medium">TypeScript</span>,{" "}
           <span className="font-medium">Tailwind</span>,{" "}
           <span className="font-medium">tRPC</span>,{" "}
-          <span className="font-medium">React Query</span>, and{" "}
-          <span className="font-medium">Drizzle ORM</span>.
+          <span className="font-medium">React Query</span>,{" "}
+          <span className="font-medium">Drizzle ORM</span>, and many more cool
+          technologies.
         </p>
 
         <p>
