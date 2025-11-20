@@ -5,6 +5,7 @@ const projects = [
     name: "Seashell",
     role: "Full Stack Developer",
     timeline: "2023 - Current",
+    location: "🇺🇸 US, Remote",
     shortDescription:
       "Packaging marketplace connecting clients, suppliers, and liaisons",
     description:
@@ -18,6 +19,7 @@ const projects = [
     name: "Invoiceapp",
     role: "Founder",
     timeline: "2022 - Current",
+    location: "🇮🇳 India, Bangalore",
     shortDescription:
       "Business management platform for invoicing, estimates, and payments",
     description:
@@ -30,6 +32,7 @@ const projects = [
     name: "Compsoft Technologies",
     role: "Intern",
     timeline: "2022 (3 months)",
+    location: "🇮🇳 India, Bangalore",
     shortDescription: "Web development for client projects",
     description:
       "Created small websites for various clients, implementing responsive designs and dynamic features. Worked on multiple projects to deliver custom solutions based on client requirements.",

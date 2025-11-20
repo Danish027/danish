@@ -7,16 +7,14 @@ export default function Home() {
 
       <div className="space-y-6 leading-loose text-gray-700">
         <p>
-          I am a software developer based in{" "}
-          <span className="font-medium">Bangalore, India</span>, currently
-          working at{" "}
+          I am a Full Stack Software Engineer currently working at{" "}
           <Link
             href="https://seashellpack.com"
             className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
           >
-            Seashell
-          </Link>{" "}
-          and also the founder of{" "}
+            Seashell 🇺🇸
+          </Link>
+          , a US-based startup, as a Founding Engineer, and also the founder of{" "}
           <Link
             href="https://invoiceapp.io"
             className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
@@ -39,11 +37,16 @@ export default function Home() {
           Invoiceapp, a platform to create invoices and track payments. I work
           with <span className="font-medium">Next.js</span>,{" "}
           <span className="font-medium">TypeScript</span>,{" "}
-          <span className="font-medium">Tailwind</span>,{" "}
+          <span className="font-medium">React</span>,{" "}
+          <span className="font-medium">PostgreSQL</span>,{" "}
+          <span className="font-medium">Tailwind CSS</span>,{" "}
           <span className="font-medium">tRPC</span>,{" "}
           <span className="font-medium">React Query</span>,{" "}
-          <span className="font-medium">Drizzle ORM</span>, and many more cool
-          technologies.
+          <span className="font-medium">Drizzle ORM</span>,{" "}
+          <span className="font-medium">Zustand</span>,{" "}
+          <span className="font-medium">Framer Motion</span>,{" "}
+          <span className="font-medium">Express</span>, and modern DevOps
+          practices.
         </p>
 
         <p>
@@ -54,14 +57,7 @@ export default function Home() {
           >
             GitHub
           </Link>
-          ,{" "}
-          <Link
-            href="https://x.com/Danish_027"
-            className="underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            X/Twitter
-          </Link>
-          , and{" "}
+          {" "}and{" "}
           <Link
             href="https://www.linkedin.com/in/danish027/"
             className="underline underline-offset-4 hover:text-gray-600 transition-colors"
