@@ -34,7 +34,11 @@ export default function Home() {
           Founding Engineer, building a software platform that serves as
           packaging's three-sided marketplace in the United States. In{" "}
           <span className="font-medium">2022</span>, I started working on
-          Invoiceapp, a platform to create invoices and track payments. I work
+          Invoiceapp, a platform to create invoices and track payments.
+        </p>
+
+        <p>
+        I work
           with <span className="font-medium">Next.js</span>,{" "}
           <span className="font-medium">TypeScript</span>,{" "}
           <span className="font-medium">React</span>,{" "}
@@ -45,9 +49,8 @@ export default function Home() {
           <span className="font-medium">Drizzle ORM</span>,{" "}
           <span className="font-medium">Zustand</span>,{" "}
           <span className="font-medium">Framer Motion</span>,{" "}
-          <span className="font-medium">Express</span>, and modern DevOps
-          practices.
-        </p>
+          <span className="font-medium">Express</span>, and many more technologies.
+          </p>
 
         <p>
           You can find me on{" "}
