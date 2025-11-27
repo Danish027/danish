@@ -1,9 +1,55 @@
 import Link from "next/link";
 
+type TechCategory = {
+  title: string;
+  items: string[];
+};
+
+const techCategories: TechCategory[] = [
+  {
+    title: "Languages",
+    items: ["JavaScript", "TypeScript", "C/C++"],
+  },
+  {
+    title: "Frontend",
+    items: ["Next.js", "React", "Tailwind CSS", "Vite"],
+  },
+  {
+    title: "UI & Motion",
+    items: ["Framer Motion", "Radix UI", "Shadcn UI"],
+  },
+  {
+    title: "Backend & APIs",
+    items: ["Express", "Node.js", "tRPC"],
+  },
+  {
+    title: "Databases",
+    items: ["MongoDB", "MySQL", "PostgreSQL", "Redis"],
+  },
+  {
+    title: "ORMs & State",
+    items: ["Drizzle ORM", "Mongoose", "Prisma", "React Query", "Zod", "Zustand"],
+  },
+  {
+    title: "Infra & Tooling",
+    items: ["Docker", "GitHub Actions", "PlanetScale", "Supabase", "Vercel"],
+  },
+];
+
 export default function Home() {
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="font-semibold mb-8">Mohammed Danish</h1>
+      <h1 className="font-semibold text-lg">Mohammed Danish</h1>
+      <p className="text-sm text-gray-600">Bangalore, India</p>
+      <p className="font-medium text-gray-600 py-5">
+        Building{" "}
+        <Link
+          href="https://invoiceapp.io"
+          className="underline underline-offset-4 hover:text-gray-700 transition-colors"
+        >
+          Invoiceapp.io
+        </Link>
+      </p>
 
       <div className="space-y-6 leading-loose text-gray-700">
         <p>
@@ -37,20 +83,20 @@ export default function Home() {
           Invoiceapp, a platform to create invoices and track payments.
         </p>
 
-        <p>
-        I work
-          with <span className="font-medium">Next.js</span>,{" "}
-          <span className="font-medium">TypeScript</span>,{" "}
-          <span className="font-medium">React</span>,{" "}
-          <span className="font-medium">PostgreSQL</span>,{" "}
-          <span className="font-medium">Tailwind CSS</span>,{" "}
-          <span className="font-medium">tRPC</span>,{" "}
-          <span className="font-medium">React Query</span>,{" "}
-          <span className="font-medium">Drizzle ORM</span>,{" "}
-          <span className="font-medium">Zustand</span>,{" "}
-          <span className="font-medium">Framer Motion</span>,{" "}
-          <span className="font-medium">Express</span>, and many more technologies.
-          </p>
+        <section aria-labelledby="tech-stack-heading" className="space-y-2">
+          <h2 id="tech-stack-heading" className="font-semibold text-gray-600">
+            Web technologies I use
+          </h2>
+
+          <div className="text-gray-600">
+            {techCategories.map(({ title, items }) => (
+              <p key={title}>
+                <span className="font-medium text-gray-700">{title}:</span>{" "}
+                {items.join(", ")}
+              </p>
+            ))}
+          </div>
+        </section>
 
         <p>
           You can find me on{" "}
