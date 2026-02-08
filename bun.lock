@@ -17,7 +17,7 @@
         "react": "19.1.2",
         "react-dom": "19.1.2",
         "react-spring": "^10.0.3",
-        "sass": "^1.97.3",
+        "sass": "^1.77.8",
       },
       "devDependencies": {
         "@biomejs/biome": "2.2.0",

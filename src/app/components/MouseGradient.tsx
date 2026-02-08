@@ -8,6 +8,7 @@ import gsap from "gsap";
 const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [textColor, setTextColor] = useState<"white" | "transparent">("white");
+  const [viewport, setViewport] = useState({ width: 0, height: 0 });
   const gradientRef = useRef<HTMLDivElement>(null);
   const animation = useRef<gsap.core.Tween | null>(null);
 
@@ -22,6 +23,19 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
   }));
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const updateViewport = () => {
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
+    };
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => {
+      window.removeEventListener("resize", updateViewport);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
     const element = gradientRef.current;
     if (!element) return;
 
@@ -75,6 +89,7 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleScroll = () => {
       if (scrollYProgress.get() > 0.2 && scrollYProgress.get() < 0.4) {
         const t = (scrollYProgress.get() - 0.2) / 0.2; // normalize to 0-1
@@ -107,21 +122,22 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
     };
   }, [setButtonProps]);
 
+  const isWide = viewport.width > 768;
+  const gradientSize = !isMobile
+    ? Math.min(viewport.width, viewport.height)
+    : 0;
+
   return (
     <>
       {!isMobile && (
         <motion.div
           ref={gradientRef}
           style={{
-            position: window.innerWidth > 768 ? "fixed" : "absolute",
+            position: isWide ? "fixed" : "absolute",
             top: "50%",
             left: "50%",
-            width: `${
-              !isMobile ? Math.min(window.innerWidth, window.innerHeight) : 0
-            }px`,
-            height: `${
-              !isMobile ? Math.min(window.innerWidth, window.innerHeight) : 0
-            }px`,
+            width: `${gradientSize}px`,
+            height: `${gradientSize}px`,
             transform: "translate(-50%, -50%)",
             pointerEvents: "none",
             zIndex: 0,
@@ -132,7 +148,7 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
       )}
 
       <div>
-        {window.innerWidth > 768 && (
+        {isWide && (
           <button
             className="fixed top-6 right-16 z-[11] px-4 py-2 text-xl poppins-regular flex flex-row gap-x-2 items-center"
             style={{ color: textColor }}
@@ -144,7 +160,7 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
 
         <animated.button
           style={{
-            position: window.innerWidth > 768 ? "fixed" : "absolute",
+            position: isWide ? "fixed" : "absolute",
             right: "1.5rem",
             padding: "0.5rem 1rem",
             color: buttonProps.color,
@@ -155,7 +171,11 @@ const MouseGradient = ({ isMobile }: { isMobile: boolean }) => {
           <Equal size={32} />
         </animated.button>
       </div>
-      <NavMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <NavMenu
+        isOpen={isMenuOpen}
+        isMobile={isMobile}
+        onClose={() => setIsMenuOpen(false)}
+      />
     </>
   );
 };

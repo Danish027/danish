@@ -112,7 +112,7 @@ const About: React.FC<AboutSectionProps> = ({
                   variants={fadeInUpVariants}
                   custom={3}
                   onClick={() => lenis?.scrollTo("#contact")}
-                  className="flex bg-dark rounded-full text-light pl-4 pr-6 gap-x-1 py-3 w-max poppins-regular mt-24 select-none"
+                  className="flex bg-black rounded-full text-light pl-4 pr-6 gap-x-1 py-3 w-max poppins-regular mt-24 select-none text-white"
                 >
                   <ArrowUpRight />
                   Get in Touch

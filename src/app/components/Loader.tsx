@@ -7,17 +7,34 @@ type LoaderProps = {
 
 const Loader: React.FC<LoaderProps> = ({ onLoadingComplete }) => {
   const [show, setShow] = useState<boolean>(true);
-  const controls = useAnimation();
+  const controlsM = useAnimation();
+  const controlsD = useAnimation();
   const animationCompleted = useRef<boolean>(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const animateSvg = async () => {
       document.body.style.cursor = "wait";
-      // Start the SVG animation
-      await controls
+
+      // Animate "m" letter first
+      await controlsM.start({
+        pathLength: 1,
+        strokeWidth: 2,
+        transition: {
+          pathLength: { duration: 1.2, ease: "easeInOut" },
+          strokeWidth: { duration: 0 },
+        },
+      });
+
+      // Then animate "d" letter
+      await controlsD
         .start({
           pathLength: 1,
-          transition: { duration: 2, ease: "easeInOut" },
+          strokeWidth: 2,
+          transition: {
+            pathLength: { duration: 1, ease: "easeInOut" },
+            strokeWidth: { duration: 0 },
+          },
         })
         .then(() => {
           document.body.style.cursor = "auto";
@@ -28,7 +45,6 @@ const Loader: React.FC<LoaderProps> = ({ onLoadingComplete }) => {
 
       animationCompleted.current = true;
 
-      // Only now check if the page has loaded
       if (document.readyState === "complete") {
         setShow(false);
       } else {
@@ -42,13 +58,12 @@ const Loader: React.FC<LoaderProps> = ({ onLoadingComplete }) => {
       }
     };
 
-    // Start animation
     animateSvg();
 
     return () => {
       window.removeEventListener("load", handlePageLoad);
     };
-  }, [controls]);
+  }, [controlsM, controlsD]);
 
   // Call onLoadingComplete when the loader starts to fade out
   useEffect(() => {
@@ -78,23 +93,36 @@ const Loader: React.FC<LoaderProps> = ({ onLoadingComplete }) => {
           }}
         >
           <motion.svg
-            width="100"
+            width="160"
             height="100"
-            viewBox="0 0 32 32"
+            viewBox="0 0 51 32"
             xmlns="http://www.w3.org/2000/svg"
             initial={{ scale: 1 }}
             exit={{ scale: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
+            {/* Letter "m" - stems from baseline (y=28) to y=21, arcs peak at x-height (y=15) */}
             <motion.path
-              d="M8 2 V28 M8 22 A7 7 0 1 1 8 22.01"
+              d="M 4 28 L 4 21 A 6 6 0 0 1 16 21 L 16 28 L 16 21 A 6 6 0 0 1 28 21 L 28 28"
               fill="none"
               stroke="#000000"
-              strokeWidth="2"
+              strokeWidth="0"
               strokeLinecap="round"
               strokeLinejoin="round"
-              initial={{ pathLength: 0 }}
-              animate={controls}
+              initial={{ pathLength: 0, strokeWidth: 0 }}
+              animate={controlsM}
+            />
+            {/* Letter "d" - original path mirrored to place bowl on left of stem */}
+            <motion.path
+              d="M 8 2 V 28 M 8 22 A 7 7 0 1 1 8 22.01"
+              transform="translate(55 0) scale(-1 1)"
+              fill="none"
+              stroke="#000000"
+              strokeWidth="0"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0, strokeWidth: 0 }}
+              animate={controlsD}
             />
           </motion.svg>
         </motion.div>

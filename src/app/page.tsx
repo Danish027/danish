@@ -29,11 +29,13 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const rootElementRef = useRef<HTMLElement | null>(null);
 
   // window is not defined on the server, so only access it when mounted
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const checkIsMobile = () => {
       setIsMobile(typeof window !== "undefined" && window.innerWidth <= 768);
     };
@@ -42,11 +44,20 @@ function App() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    rootElementRef.current =
+      document.getElementById("root") ??
+      document.getElementById("__next") ??
+      document.querySelector("main");
+  }, []);
+
   const isTouchDevice = useIsTouchDevice();
 
   // ----- Dimension update ----- //
   const updateDimensions = useCallback(
     debounce(() => {
+      if (typeof window === "undefined") return;
       const newDimensions = {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -58,6 +69,7 @@ function App() {
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
 
@@ -75,6 +87,7 @@ function App() {
   const handleScroll = useCallback(
     (latest: number) => {
       requestAnimationFrame(() => {
+        if (typeof document === "undefined") return;
         const progress = !isMobile
           ? Math.max(0, Math.min((latest - 0.1) / 0.1, 1))
           : Math.max(0, Math.min((latest - 0.03) / 0.1, 1));
@@ -94,14 +107,15 @@ function App() {
           endColor,
         )}) 0%, rgb(${interpolateColor(startColor, endColor)}) 65%)`;
         backgroundGradient.set(newGradient);
+        const rootElement = rootElementRef.current;
 
         if (progress < 0.1) {
           document.body.style.backgroundColor = "#000000";
-          document.getElementById("root")!.style.backgroundColor = "#000000";
+          if (rootElement) rootElement.style.backgroundColor = "#000000";
           document.documentElement.style.backgroundColor = "#000000";
         } else if (progress > 0.3) {
           document.body.style.backgroundColor = "#ffffff";
-          document.getElementById("root")!.style.backgroundColor = "#ffffff";
+          if (rootElement) rootElement.style.backgroundColor = "#ffffff";
           document.documentElement.style.backgroundColor = "#ffffff";
         }
 
@@ -151,15 +165,9 @@ function App() {
         <MouseGradient isMobile={isMobile} />
         <motion.div
           style={{ background: backgroundGradient }}
-          className="w-screen overflow-hidden h-screen flex flex-col justify-center items-center "
+          className="w-screen overflow-hidden h-screen flex flex-col justify-center items-center bg-white"
         >
-          <BackgroundSVG
-            width={dimensions.width}
-            height={dimensions.height}
-            isMobile={isMobile}
-            svgOpacity={svgOpacity}
-            isLoading={isLoading}
-          />
+        
           <Navbar />
           <motion.div
             initial={initialState}
@@ -215,6 +223,8 @@ function App() {
             </motion.p>
           </motion.div>
         </motion.div>
+
+        {/* about section */}
         <div ref={aboutRef} id="about">
           <About
             isAboutInView={useInView(aboutRef, { amount: 0.3 })}
@@ -223,8 +233,10 @@ function App() {
           />
         </div>
 
+        {/* section spacer */}
         <SectionSpacer height={300} backgroundGradient={backgroundGradient} />
 
+        {/* projects section */}
         <div ref={projectsRef} id="projects" className="relative">
           <Projects
             isProjectsInView={useInView(projectsRef, {
@@ -235,6 +247,7 @@ function App() {
           />
         </div>
 
+        {/* contact section */}
         <div ref={contactRef} id="contact" className="relative">
           <Contact
             isContactInView={useInView(contactRef, { amount: 0.5 })}

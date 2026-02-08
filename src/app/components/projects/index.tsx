@@ -170,6 +170,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
 
   useEffect(() => {
     if (isMobile) return;
+    if (typeof window === "undefined") return;
 
     const items = itemsRef.current;
     if (!items) return;

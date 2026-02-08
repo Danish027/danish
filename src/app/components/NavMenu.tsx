@@ -6,9 +6,10 @@ import { useLenis } from "@studio-freight/react-lenis";
 type NavMenuProps = {
   isOpen: boolean;
   onClose: () => void;
+  isMobile: boolean;
 };
 
-const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose }) => {
+const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
   const { scrollY } = useScroll();
 
   const lenis = useLenis();
@@ -161,7 +162,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose }) => {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.4 + index * 0.05, duration: 0.3 }}
                     onClick={() =>
-                      window.innerWidth <= 768 &&
+                      isMobile &&
                       document.getElementById(item.id)?.scrollIntoView()
                     }
                   >
@@ -169,7 +170,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose }) => {
                       href={`#${item.id}`}
                       onClick={(e) => handleNavClick(e, item.id)}
                       className={`text-[2.5rem] ${
-                        !(window.innerWidth <= 768) && "hover:left-2"
+                        !isMobile && "hover:left-2"
                       } left-0 relative transition-[left] duration-300 ease-in-out`}
                     >
                       {item.name}

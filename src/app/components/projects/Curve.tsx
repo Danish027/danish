@@ -13,6 +13,7 @@ export default function Curve({ isVisible }: CurveProps) {
   const controls = useAnimationControls();
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     function resize() {
       setDimensions({
         width: window.innerWidth,
