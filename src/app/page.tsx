@@ -20,6 +20,7 @@ import { useIsTouchDevice } from "./hooks/useIsTouchDevice";
 import Loader from "./components/Loader";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { ArrowUpRight } from "lucide-react";
+import { ArtPlum } from "./components/hero/ArtPlum";
 
 const heroContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -140,15 +141,16 @@ function App() {
         {/* Hero Section */}
         <motion.div
           style={{ background: backgroundGradient }}
-          className="w-screen overflow-hidden h-screen flex flex-col bg-black"
+          className="w-screen overflow-hidden h-screen flex flex-col bg-black relative"
         >
+          <ArtPlum isLoading={isLoading} />
           <Navbar />
           <motion.div
             initial={initialState}
             animate={isLoading ? "hidden" : "visible"}
             variants={heroContainerVariants}
             style={{ opacity: isMobile ? 1 : heroContentOpacity }}
-            className="flex flex-col justify-center flex-1 px-8 md:px-16 lg:px-24 max-w-[1100px] w-full"
+            className="flex flex-col justify-center flex-1 px-8 md:px-16 lg:px-24 max-w-[1100px] w-full relative z-[2]"
           >
             {/* Name */}
             <motion.h1
