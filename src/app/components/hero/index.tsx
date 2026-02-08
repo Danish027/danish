@@ -13,6 +13,7 @@ type HeroProps = {
   isMobile: boolean;
   backgroundGradient: MotionValue<string>;
   heroContentOpacity: MotionValue<number>;
+  artPlumOpacity: MotionValue<number>;
 };
 
 const containerVariants: Variants = {
@@ -54,6 +55,7 @@ function Hero({
   isMobile,
   backgroundGradient,
   heroContentOpacity,
+  artPlumOpacity,
 }: HeroProps) {
   const [currentTime, setCurrentTime] = useState("");
 
@@ -80,7 +82,7 @@ function Hero({
       style={{ background: backgroundGradient }}
       className="w-screen overflow-hidden h-screen flex flex-col bg-black relative"
     >
-      <ArtPlum isLoading={isLoading} />
+      <ArtPlum isLoading={isLoading} scrollOpacity={artPlumOpacity} />
       <Navbar />
 
       <motion.div
@@ -88,7 +90,7 @@ function Hero({
         animate={isLoading ? "hidden" : "visible"}
         variants={containerVariants}
         style={{ opacity: isMobile ? 1 : heroContentOpacity }}
-        className="flex flex-col items-start justify-center flex-1 px-8 md:px-16 lg:px-24 max-w-[900px] w-full relative z-[2]"
+        className="flex flex-col items-start justify-center flex-1 max-w-[1000px] w-full mx-auto px-4 relative z-[2]"
       >
         {/* Greeting + availability */}
         <motion.div

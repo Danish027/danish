@@ -1,4 +1,9 @@
-import { MotionValue, useAnimationControls, motion, Variants } from "motion/react";
+import {
+  MotionValue,
+  useAnimationControls,
+  motion,
+  Variants,
+} from "motion/react";
 import { useEffect, useState } from "react";
 
 type SkillsSectionProps = {
@@ -20,6 +25,42 @@ const fadeInUpVariants: Variants = {
     },
   }),
 };
+
+const ICON_SLUGS: Record<string, string> = {
+  JavaScript: "javascript",
+  TypeScript: "typescript",
+  "C/C++": "cplusplus",
+  "Next.js": "nextdotjs",
+  React: "react",
+  "Tailwind CSS": "tailwindcss",
+  Vite: "vite",
+  "Framer Motion": "framer",
+  "Radix UI": "radixui",
+  "Shadcn UI": "shadcn",
+  "Node.js": "nodedotjs",
+  Express: "express",
+  tRPC: "trpc",
+  PostgreSQL: "postgresql",
+  MongoDB: "mongodb",
+  MySQL: "mysql",
+  Redis: "redis",
+  Drizzle: "drizzle",
+  Prisma: "prisma",
+  "React Query": "reactquery",
+  Zustand: "zustand",
+  Docker: "docker",
+  "GitHub Actions": "githubactions",
+  Vercel: "vercel",
+  Supabase: "supabase",
+};
+
+const ICON_COLOR = "737373";
+
+function getIconSrc(name: string): string | null {
+  const slug = ICON_SLUGS[name];
+  if (!slug) return null;
+  return `https://cdn.simpleicons.org/${slug}/${ICON_COLOR}`;
+}
 
 const categories = [
   {
@@ -105,14 +146,28 @@ const Skills: React.FC<SkillsSectionProps> = ({
                 {cat.label}
               </p>
               <ul className="flex flex-col gap-1.5">
-                {cat.items.map((item) => (
-                  <li
-                    key={item}
-                    className="poppins-light text-sm text-[var(--gray-1)] leading-relaxed"
-                  >
-                    {item}
-                  </li>
-                ))}
+                {cat.items.map((item) => {
+                  const iconSrc = getIconSrc(item);
+                  return (
+                    <li
+                      key={item}
+                      className="poppins-light text-sm text-[var(--gray-1)] leading-relaxed flex items-center gap-2"
+                    >
+                      {iconSrc ? (
+                        <span className="flex shrink-0 w-5 h-5 rounded overflow-hidden bg-white/5 flex items-center justify-center">
+                          <img
+                            src={iconSrc}
+                            alt=""
+                            width={18}
+                            height={18}
+                            className="w-[18px] h-[18px] object-contain grayscale opacity-90"
+                          />
+                        </span>
+                      ) : null}
+                      {item}
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           ))}

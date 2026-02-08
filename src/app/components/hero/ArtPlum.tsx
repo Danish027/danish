@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import { MotionValue, motion } from "motion/react";
+import { useTransform } from "framer-motion";
 
 type ArtPlumProps = {
   isLoading: boolean;
+  scrollOpacity: MotionValue<number>;
 };
 
 const r180 = Math.PI;
@@ -17,12 +20,13 @@ function polar2cart(
   x: number,
   y: number,
   r: number,
-  theta: number
+  theta: number,
 ): [number, number] {
   return [x + r * Math.cos(theta), y + r * Math.sin(theta)];
 }
 
-function ArtPlum({ isLoading }: ArtPlumProps) {
+function ArtPlum({ isLoading, scrollOpacity }: ArtPlumProps) {
+  const opacity = useTransform(scrollOpacity, [0, 1], [0, 1]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stepsRef = useRef<(() => void)[]>([]);
   const prevStepsRef = useRef<(() => void)[]>([]);
@@ -56,7 +60,7 @@ function ArtPlum({ isLoading }: ArtPlumProps) {
       x: number,
       y: number,
       rad: number,
-      counter = { value: 0 }
+      counter = { value: 0 },
     ) => {
       const length = random() * LEN;
       counter.value += 1;
@@ -143,15 +147,17 @@ function ArtPlum({ isLoading }: ArtPlumProps) {
   }, [isLoading, startAnimation]);
 
   return (
-    <div
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        maskImage: "radial-gradient(circle, transparent, black)",
-        WebkitMaskImage: "radial-gradient(circle, transparent, black)",
-      }}
-    >
-      <canvas ref={canvasRef} width="400" height="400" />
-    </div>
+    <motion.div style={{ opacity }}>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          maskImage: "radial-gradient(circle, transparent, black)",
+          WebkitMaskImage: "radial-gradient(circle, transparent, black)",
+        }}
+      >
+        <canvas ref={canvasRef} width="400" height="400" />
+      </div>
+    </motion.div>
   );
 }
 

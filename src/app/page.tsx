@@ -53,6 +53,7 @@ function App() {
   const { scrollYProgress } = useScroll();
   const backgroundGradient = useMotionValue("#000000");
   const heroContentOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const artPlumOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   const handleScroll = useCallback(
     (latest: number) => {
@@ -98,6 +99,7 @@ function App() {
           isMobile={isMobile}
           backgroundGradient={backgroundGradient}
           heroContentOpacity={heroContentOpacity}
+          artPlumOpacity={artPlumOpacity}
         />
 
         {/* about section */}
