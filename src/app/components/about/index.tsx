@@ -20,7 +20,7 @@ const fadeInUpVariants: Variants = {
       ease: "easeOut",
       delay: custom * 0.2,
       type: "tween",
-      useNativeDriver: true
+      useNativeDriver: true,
     },
   }),
 };
@@ -33,7 +33,6 @@ const lineVariants: Variants = {
       duration: 1.5,
       ease: "easeInOut",
       type: "tween",
-      // useNativeDriver: true
     },
   },
 };
@@ -44,9 +43,7 @@ const About: React.FC<AboutSectionProps> = ({
   backgroundGradient,
 }) => {
   const aboutControls = useAnimationControls();
-
   const [hasAnimated, setHasAnimated] = useState(false);
-
   const lenis = useLenis();
 
   useEffect(() => {
@@ -74,11 +71,10 @@ const About: React.FC<AboutSectionProps> = ({
         <motion.h1
           variants={fadeInUpVariants}
           custom={0}
-          className={`khula-semibold ${isMobile ? "text-4xl" : "text-6xl"}`}
+          className={`khula-semibold ${isMobile ? "text-3xl" : "text-5xl"} leading-[1.3]`}
         >
-          Great software isn&apos;t just about writing code — it&apos;s about
-          understanding people, solving real problems, and crafting experiences
-          that feel effortless.
+          I care about building products that solve real problems, feel
+          intuitive to use, and are crafted with attention to every detail.
         </motion.h1>
 
         <motion.div
@@ -92,8 +88,9 @@ const About: React.FC<AboutSectionProps> = ({
           <motion.hr
             variants={lineVariants}
             className="bg-gray-3 origin-left w-full"
-          ></motion.hr>
+          />
         </motion.div>
+
         <div
           className={`flex justify-between flex-row mt-16 ${
             isMobile && "mt-8 flex-col"
@@ -105,7 +102,7 @@ const About: React.FC<AboutSectionProps> = ({
               custom={2}
               className="khula-light text-5xl text-nowrap"
             >
-              Since 2022.
+              Background
             </motion.h2>
             {!isMobile && (
               <Magnetic>
@@ -121,6 +118,7 @@ const About: React.FC<AboutSectionProps> = ({
               </Magnetic>
             )}
           </div>
+
           <div
             className={`flex flex-col gap-y-4 w-1/2 khula-light text-2xl ${
               isMobile && "mt-8 text-lg w-full"
@@ -128,18 +126,19 @@ const About: React.FC<AboutSectionProps> = ({
           >
             <motion.p variants={fadeInUpVariants} custom={4}>
               Graduated in 2024 with a B.Tech in Computer Science &amp;
-              Engineering. In 2022, I started building Invoiceapp — a platform
-              to create invoices and track payments — driven by a desire to
-              build complete products from the ground up.
+              Engineering. In 2022, I started building Invoiceapp, a platform to
+              create invoices and track payments, driven by a desire to build
+              complete products from the ground up.
             </motion.p>
             <motion.p variants={fadeInUpVariants} custom={5}>
               In 2023, I joined Seashell as a Founding Engineer, building a
               software platform that serves as packaging&apos;s three-sided
-              marketplace in the United States. I work across the entire stack
-              — from design to deployment — and thrive where creativity meets
+              marketplace in the United States. I work across the entire stack,
+              from design to deployment, and thrive where creativity meets
               engineering.
             </motion.p>
           </div>
+
           {isMobile && (
             <motion.button
               variants={fadeInUpVariants}
