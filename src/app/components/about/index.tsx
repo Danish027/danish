@@ -1,4 +1,9 @@
-import { MotionValue, useAnimationControls, motion, Variants } from "motion/react";
+import {
+  MotionValue,
+  useAnimationControls,
+  motion,
+  Variants,
+} from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Magnetic from "../Magnetic";
@@ -61,17 +66,17 @@ const About: React.FC<AboutSectionProps> = ({
   return (
     <motion.div
       style={{ background: backgroundGradient }}
-      className="w-screen min-h-screen overflow-hidden flex justify-center items-center relative z-10"
+      className="w-full min-w-0 min-h-screen overflow-x-hidden flex justify-center items-center relative z-10 py-12 sm:py-0"
     >
       <motion.div
         initial={initialState}
         animate={aboutControls}
-        className="max-w-[1000px] px-4"
+        className="max-w-[1000px] w-full px-6 sm:px-6 md:px-4"
       >
         <motion.h1
           variants={fadeInUpVariants}
           custom={0}
-          className={`khula-semibold ${isMobile ? "text-3xl" : "text-5xl"} leading-[1.3]`}
+          className="khula-semibold text-2xl min-[480px]:text-3xl sm:text-5xl leading-[1.3] break-words"
         >
           I care about building products that solve real problems, feel
           intuitive to use, and are crafted with attention to every detail.
@@ -80,9 +85,9 @@ const About: React.FC<AboutSectionProps> = ({
         <motion.div
           variants={fadeInUpVariants}
           custom={1}
-          className={`mt-[10vh] ${isMobile && "mt-8"}`}
+          className="mt-8 sm:mt-[10vh]"
         >
-          <p className="text-gray-3 poppins-light-italic ml-2 mb-1 select-none">
+          <p className="text-gray-3 poppins-light-italic ml-0 sm:ml-2 mb-1 select-none text-sm sm:text-base">
             The journey so far.
           </p>
           <motion.hr
@@ -91,16 +96,12 @@ const About: React.FC<AboutSectionProps> = ({
           />
         </motion.div>
 
-        <div
-          className={`flex justify-between flex-row mt-16 ${
-            isMobile && "mt-8 flex-col"
-          }`}
-        >
-          <div className="flex flex-col w-1/2">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-8 sm:gap-0 mt-10 sm:mt-16">
+          <div className="flex flex-col w-full sm:w-1/2 min-w-0">
             <motion.h2
               variants={fadeInUpVariants}
               custom={2}
-              className="khula-light text-5xl text-nowrap"
+              className="khula-light text-3xl sm:text-5xl"
             >
               Background
             </motion.h2>
@@ -119,11 +120,7 @@ const About: React.FC<AboutSectionProps> = ({
             )}
           </div>
 
-          <div
-            className={`flex flex-col gap-y-4 w-1/2 khula-light text-2xl ${
-              isMobile && "mt-8 text-lg w-full"
-            }`}
-          >
+          <div className="flex flex-col gap-y-4 w-full sm:w-1/2 min-w-0 khula-light text-base sm:text-2xl">
             <motion.p variants={fadeInUpVariants} custom={4}>
               Graduated in 2024 with a B.Tech in Computer Science &amp;
               Engineering. In 2022, I started building Invoiceapp, a platform to
@@ -144,9 +141,11 @@ const About: React.FC<AboutSectionProps> = ({
               variants={fadeInUpVariants}
               custom={3}
               onClick={() =>
-                document.getElementById("contact")?.scrollIntoView()
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="flex bg-dark rounded-full text-light pl-4 pr-6 gap-x-1 py-3 w-max h-fit poppins-regular select-none mt-8"
+              className="flex bg-black text-white rounded-full pl-4 pr-6 gap-x-1 py-2 w-max h-fit poppins-regular select-none mt-4"
             >
               <ArrowUpRight />
               Get in Touch
