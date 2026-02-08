@@ -1,5 +1,10 @@
-import { MotionValue, motion, useAnimationControls, Variants } from "motion/react";
-import { Linkedin, Mail } from "lucide-react";
+import {
+  MotionValue,
+  motion,
+  useAnimationControls,
+  Variants,
+} from "motion/react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import Magnetic from "../Magnetic";
 
@@ -19,7 +24,7 @@ const fadeInUpVariants: Variants = {
       ease: "easeOut",
       delay: custom * 0.2,
       type: "tween",
-      useNativeDriver: true
+      useNativeDriver: true,
     },
   }),
 };
@@ -73,21 +78,32 @@ const Contact: React.FC<ContactSectionProps> = ({
       >
         <Magnetic>
           <a
-            href="mailto:info@bencodes.de"
-            className="flex gap-x-2 rounded-full border-dark border-2 px-2 py-1"
+            href="mailto:mohammeddanish.dev@gmail.com"
+            target="_blank"
+            className="flex gap-x-1 rounded-full border-black border-2 px-3 py-1 items-center"
           >
-            <Mail />
+            <Mail className="size-5" />
             Email
           </a>
         </Magnetic>
         <Magnetic>
           <a
-            href="https://linkedin.com/in/ben-böckmann-296293265"
+            href="https://www.linkedin.com/in/danish027/"
             target="_blank"
-            className="flex gap-x-2 rounded-full border-dark border-2 px-2 py-1"
+            className="flex gap-x-1 rounded-full border-black border-2 px-3 py-1 items-center"
           >
-            <Linkedin />
+            <Linkedin className="size-5" />
             LinkedIn
+          </a>
+        </Magnetic>
+        <Magnetic>
+          <a
+            href="https://github.com/danish027"
+            target="_blank"
+            className="flex gap-x-1 rounded-full border-black border-2 px-3 py-1 items-center"
+          >
+            <Github className="size-5" />
+            Github
           </a>
         </Magnetic>
       </motion.div>
@@ -96,12 +112,12 @@ const Contact: React.FC<ContactSectionProps> = ({
         variants={fadeInUpVariants}
         className="flex flex-col items-center mt-[5vh]"
       >
-        <p className="poppins-regular text-2xl">bb</p>
-        <p className="poppins-extralight text-2xl">Ben Böckmann</p>
+        <p className="poppins-regular text-2xl">md</p>
+        <p className="poppins-extralight text-2xl">Mohammed Danish</p>
 
         <p className="poppins-light px-4 text-gray-3 tracking-[calc(-1rem*0.03)] mt-[8vh] select-none mb-1 text-center">
-          © Ben Böckmann {new Date().getFullYear()}. All rights reserved.
-          Location: Germany
+          © Mohammed Danish {new Date().getFullYear()}. All rights reserved.
+          Location: Bangalore, India
         </p>
         <p className="poppins-light px-4 text-gray-3 select-none tracking-[calc(-1rem*0.03)] mb-8 max-w-[500px] text-center">
           This site showcases my personal projects and professional work.
