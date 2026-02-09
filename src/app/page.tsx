@@ -14,6 +14,7 @@ import About from "./components/about";
 import { Skills } from "./components/about/Skills";
 import Contact from "./components/contact";
 import Projects from "./components/projects";
+import FrontendWork from "./components/frontend-work";
 import SectionSpacer from "./components/SectionSpacer";
 import { useIsTouchDevice } from "./hooks/useIsTouchDevice";
 import Loader from "./components/Loader";
@@ -24,6 +25,7 @@ function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const frontendWorkRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const rootElementRef = useRef<HTMLElement | null>(null);
 
@@ -127,6 +129,20 @@ function App() {
         <div ref={projectsRef} id="projects" className="relative">
           <Projects
             isProjectsInView={useInView(projectsRef, {
+              amount: isTouchDevice ? 0.1 : 0.3,
+            })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
+
+        {/* section spacer */}
+        <SectionSpacer height={300} backgroundGradient={backgroundGradient} />
+
+        {/* frontend work section */}
+        <div ref={frontendWorkRef} id="frontend-work" className="relative">
+          <FrontendWork
+            isFrontendWorkInView={useInView(frontendWorkRef, {
               amount: isTouchDevice ? 0.1 : 0.3,
             })}
             isMobile={isMobile}

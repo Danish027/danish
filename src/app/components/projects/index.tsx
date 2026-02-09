@@ -5,6 +5,7 @@ import {
   AnimatePresence,
   useSpring,
   useAnimationControls,
+  Variants,
 } from "framer-motion";
 import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
 import Curve from "./Curve";
@@ -31,7 +32,7 @@ export type Project = {
   link: string;
 };
 
-const fadeInUpVariants = {
+const fadeInUpVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: (custom: number) => ({
     opacity: 1,
@@ -41,7 +42,7 @@ const fadeInUpVariants = {
       ease: "easeOut",
       delay: custom * 0.2,
       type: "tween",
-      useNativeDriver: true
+      useNativeDriver: true,
     },
   }),
   exit: {
@@ -51,7 +52,7 @@ const fadeInUpVariants = {
       duration: 0.4,
       ease: "easeIn",
       type: "tween",
-      useNativeDriver: true
+      // useNativeDriver: true,
     },
   },
 };
@@ -413,7 +414,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
             {isContentVisible && (
               <button
                 onClick={closeOverlay}
-                className="fixed z-[9999] top-6 right-6 px-4 py-2 text-light text-xl poppins-regular flex flex-row gap-x-2 items-center"
+                className="fixed z-[9999] top-6 right-6 px-4 py-2 text-white text-xl poppins-regular flex flex-row gap-x-2 items-center cursor-pointer"
               >
                 <X size={32} />
               </button>
