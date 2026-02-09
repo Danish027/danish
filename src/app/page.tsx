@@ -123,7 +123,10 @@ function App() {
         </div>
 
         {/* section spacer */}
-        <SectionSpacer height={300} backgroundGradient={backgroundGradient} />
+        <SectionSpacer
+          height={isMobile ? 100 : 200}
+          backgroundGradient={backgroundGradient}
+        />
 
         {/* projects section */}
         <div ref={projectsRef} id="projects" className="relative">
@@ -137,7 +140,10 @@ function App() {
         </div>
 
         {/* section spacer */}
-        <SectionSpacer height={300} backgroundGradient={backgroundGradient} />
+        <SectionSpacer
+          height={isMobile ? 100 : 200}
+          backgroundGradient={backgroundGradient}
+        />
 
         {/* frontend work section */}
         <div ref={frontendWorkRef} id="frontend-work" className="relative">

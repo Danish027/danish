@@ -141,7 +141,14 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       projectsControls.start("hidden");
       setHasAnimated(false);
     }
-  }, [isProjectsInView, projectsControls, hasAnimated, setHasAnimated]);
+  }, [isProjectsInView, projectsControls, hasAnimated]);
+
+  // Ensure mobile view is always visible
+  useEffect(() => {
+    if (isMobile || isTouchDevice) {
+      projectsControls.start("visible");
+    }
+  }, [isMobile, isTouchDevice, projectsControls]);
 
   // ----- Hover effect ----- //
 
@@ -257,50 +264,53 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       }}
       initial={initialState}
       animate={projectsControls}
-      className="w-screen min-h-screen flex justify-center flex-col items-center relative z-10"
+      className="w-full min-h-screen flex justify-center flex-col items-center relative z-10"
     >
       {isTouchDevice || (!isTouchDevice && isMobile) ? (
-        <motion.div>
-          <motion.h2
-            custom={0}
-            variants={fadeInUpVariants}
-            className="poppins-light text-3xl tracking-[calc(3rem * 0.02)] text-center mb-10"
-          >
-            Selected Projects
-          </motion.h2>
+        <motion.div className="w-full px-4 py-8">
+            <motion.h2
+              custom={0}
+              variants={fadeInUpVariants}
+              className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
+            >
+              Selected Projects
+            </motion.h2>
 
-          {/* Mobile Version: Card like design */}
-          <div className="grid grid-cols-2 grid-flow-row max-sm:grid-cols-1 gap-6 gap-y-32 px-4">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.number}
-                className="w-80 max-sm:w-[80vw] flex flex-col gap-y-4 items-center"
-                variants={fadeInUpVariants}
-                onClick={() => handleProjectClick(project)}
-                custom={index + 1}
-              >
-                <div
+            {/* Mobile Version: Card like design */}
+            <div className="flex flex-col gap-12 sm:gap-6 w-full mx-auto">
+              {projects.map((project, index) => (
+                <motion.div
                   key={project.number}
-                  className="w-80 aspect-[77/44] max-sm:w-[80vw] bg-cover bg-center rounded-xl"
-                  style={{ backgroundImage: `url('${project.image}')` }}
-                ></div>
-                <h1 className="khula-regular text-4xl mt-8">{project.title}</h1>
-                <hr />
-                <div className="flex flex-col gap-y-1 w-full">
-                  <p className="poppins-extralight text-lg">{project.role}</p>
-                  <div className="flex flex-row gap-x-3">
-                    <p className="poppins-extralight text-sm text-gray-2">
-                      {project.timestamp}
+                  className="w-full flex flex-col items-start cursor-pointer"
+                  variants={fadeInUpVariants}
+                  onClick={() => handleProjectClick(project)}
+                  custom={index + 1}
+                >
+                  <div
+                    key={project.number}
+                    className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
+                    style={{ backgroundImage: `url('${project.image}')` }}
+                  ></div>
+                  <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
+                    {project.title}
+                  </h1>
+                  <div className="flex flex-col gap-y-1 w-full text-left mt-1">
+                    <p className="poppins-extralight text-base sm:text-lg text-left">
+                      {project.role}
                     </p>
-                    <p className="poppins-extralight text-sm text-gray-2">
-                      {project.location}
-                    </p>
+                    <div className="flex flex-row gap-x-3 justify-start">
+                      <p className="poppins-extralight text-sm text-gray-2">
+                        {project.timestamp}
+                      </p>
+                      <p className="poppins-extralight text-sm text-gray-2">
+                        {project.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
       ) : (
         <motion.div
           initial="hidden"

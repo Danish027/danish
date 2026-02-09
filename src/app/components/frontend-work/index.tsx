@@ -180,7 +180,14 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       frontendWorkControls.start("hidden");
       setHasAnimated(false);
     }
-  }, [isFrontendWorkInView, frontendWorkControls, hasAnimated, setHasAnimated]);
+  }, [isFrontendWorkInView, frontendWorkControls, hasAnimated]);
+
+  // Ensure mobile view is always visible
+  useEffect(() => {
+    if (isMobile || isTouchDevice) {
+      frontendWorkControls.start("visible");
+    }
+  }, [isMobile, isTouchDevice, frontendWorkControls]);
 
   // ----- Hover effect ----- //
 
@@ -294,38 +301,43 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       }}
       initial={initialState}
       animate={frontendWorkControls}
-      className="w-screen min-h-screen flex justify-center flex-col items-center relative z-10"
+      className="w-full min-h-screen flex justify-center flex-col items-center relative z-10"
     >
       {isTouchDevice || (!isTouchDevice && isMobile) ? (
-        <motion.div>
+        <motion.div className="w-full px-4 py-8">
           <motion.h2
             custom={0}
             variants={fadeInUpVariants}
-            className="poppins-light text-3xl tracking-[calc(3rem * 0.02)] text-center mb-10"
+            className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
           >
             Frontend Work
           </motion.h2>
 
           {/* Mobile Version: Card like design */}
-          <div className="grid grid-cols-2 grid-flow-row max-sm:grid-cols-1 gap-6 gap-y-32 px-4">
+          <div className="flex flex-col gap-12 sm:gap-6 w-full mx-auto">
             {frontendWorks.map((work, index) => (
               <motion.div
                 key={work.number}
-                className="w-80 max-sm:w-[80vw] flex flex-col gap-y-4 items-center"
+                className="w-full flex flex-col items-start cursor-pointer"
                 variants={fadeInUpVariants}
                 onClick={() => handleWorkClick(work)}
                 custom={index + 1}
               >
                 <div
                   key={work.number}
-                  className="w-80 aspect-[77/44] max-sm:w-[80vw] bg-cover bg-center rounded-xl"
+                  className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
                   style={{ backgroundImage: `url('${work.image}')` }}
                 ></div>
-                <h1 className="khula-regular text-4xl mt-8">{work.title}</h1>
-                <hr />
-                <div className="flex flex-row justify-between items-center w-full">
-                  <p className="poppins-extralight text-lg">{work.category}</p>
-                  <p className="poppins-extralight text-lg">{work.year}</p>
+                <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
+                  {work.title}
+                </h1>
+                <div className="hidden sm:flex flex-col gap-y-1 w-full text-left mt-1">
+                  <p className="poppins-extralight text-base sm:text-lg text-left">
+                    {work.category}
+                  </p>
+                  <p className="poppins-extralight text-base sm:text-lg text-left">
+                    {work.year}
+                  </p>
                 </div>
               </motion.div>
             ))}

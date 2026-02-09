@@ -67,13 +67,8 @@ export default function Overlay({
               <p className="poppins-regular text-base text-gray-1 overflow-y-auto overflow-x-hidden mt-8 mb-[4vh] max-w-[500px] w-full">
                 {project.description}
               </p>
-            </div>
-            <div>
-              <p className="khula-light text-sm tracking-[calc(0.875rem * 0.05)] uppercase text-gray-1">
-                Technologies
-              </p>
               <hr className="w-[350px] border-gray-2 mt-2" />
-              <p className="poppins-regular text-base text-gray-1 mt-8 mb-[4vh] max-w-[500px] w-full flex-col flex">
+              <div className="poppins-regular text-base text-gray-1 mt-8 mb-[4vh] max-w-[500px] w-full flex-col flex">
                 <p className="flex gap-x-1 poppins-regular text-base text-gray-1">
                   <span className="khula-light mt-[3px]">Frontend: </span>
                   {project.technologies.frontend}
@@ -86,7 +81,7 @@ export default function Overlay({
                     project.technologies.backend
                   )}
                 </p>
-              </p>
+              </div>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
