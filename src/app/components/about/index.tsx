@@ -66,7 +66,7 @@ const About: React.FC<AboutSectionProps> = ({
   return (
     <motion.div
       style={{ background: backgroundGradient }}
-      className="w-full min-w-0 min-h-screen overflow-x-hidden flex justify-center items-center relative z-10 py-12 sm:py-0"
+      className="w-full min-w-0 overflow-x-hidden flex justify-center items-start relative z-10 py-12 sm:py-20"
     >
       <motion.div
         initial={initialState}
