@@ -129,6 +129,23 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       },
       link: "https://www.invoiceapp.io/",
     },
+    {
+      number: "03",
+      title: "Compsoft Technologies",
+      role: "Web Developer Intern",
+      timestamp: "2022 (3 months)",
+      location: "🇮🇳 India, Bangalore",
+      image: "",
+      images: [],
+      description:
+        "Created small, responsive websites for various clients, implementing modern UI and dynamic features. Collaborated with the team to deliver custom solutions based on client requirements while learning production-grade workflows.",
+      color: "148, 163, 184",
+      technologies: {
+        frontend: "JavaScript, React, Tailwind CSS",
+        backend: "Express, Prisma, MongoDB",
+      },
+      link: "#",
+    },
   ];
 
   useEffect(() => {
@@ -286,11 +303,22 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                 onClick={() => handleProjectClick(project)}
                 custom={index + 1}
               >
-                <div
-                  key={project.number}
-                  className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
-                  style={{ backgroundImage: `url('${project.image}')` }}
-                ></div>
+                {project.image ? (
+                  <div
+                    key={project.number}
+                    className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
+                    style={{ backgroundImage: `url('${project.image}')` }}
+                  ></div>
+                ) : (
+                  <div
+                    key={project.number}
+                    className="w-full aspect-[77/44] rounded-xl border border-white/10 bg-gradient-to-br from-neutral-900/80 to-neutral-800/80 flex items-center justify-center"
+                  >
+                    <span className="poppins-light text-xs sm:text-sm text-gray-400">
+                      Client work – visuals not public
+                    </span>
+                  </div>
+                )}
                 <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
                   {project.title}
                 </h1>
@@ -351,13 +379,24 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                     animate={{ y: `-${200 * activeIndex}px` }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    {projects.map((project) => (
-                      <img
-                        key={project.number}
-                        className="w-full h-[200px] object-cover object-center"
-                        src={project.image}
-                      />
-                    ))}
+                    {projects.map((project) =>
+                      project.image ? (
+                        <img
+                          key={project.number}
+                          className="w-full h-[200px] object-cover object-center"
+                          src={project.image}
+                        />
+                      ) : (
+                        <div
+                          key={project.number}
+                          className="w-full h-[200px] rounded-xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-800/90 flex items-center justify-center"
+                        >
+                          <span className="poppins-light text-xs text-gray-400">
+                            Client work – visuals not public
+                          </span>
+                        </div>
+                      ),
+                    )}
                   </motion.div>
                 </motion.div>
               )}
