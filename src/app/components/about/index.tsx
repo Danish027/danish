@@ -88,7 +88,10 @@ const About: React.FC<AboutSectionProps> = ({
           className="mt-8 sm:mt-[10vh]"
         >
           <p className="text-gray-3 poppins-light-italic ml-0 sm:ml-2 mb-1 select-none text-sm sm:text-base">
-            The journey so far.
+            The journey so far —{" "}
+            <span className="text-black/90 font-medium not-italic">
+              2+ years of experience
+            </span>
           </p>
           <motion.hr
             variants={lineVariants}
