@@ -1,0 +1,496 @@
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import {
+  MotionValue,
+  motion,
+  AnimatePresence,
+  useSpring,
+  useAnimationControls,
+  Variants,
+} from "framer-motion";
+import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
+import Curve from "./Curve";
+import Overlay from "./Overlay";
+import { X } from "lucide-react";
+import { useLenis } from "@studio-freight/react-lenis";
+
+type ProjectsSectionProps = {
+  isProjectsInView: boolean;
+  isMobile: boolean;
+  backgroundGradient: MotionValue<string>;
+};
+
+export type Project = {
+  number: string;
+  title: string;
+  role: string;
+  timestamp: string;
+  location: string;
+  image: string;
+  images: string[];
+  description: string;
+  technologies: { frontend: string; backend: string };
+  color: string;
+  link: string;
+};
+
+const fadeInUpVariants: Variants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (custom: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+      delay: custom * 0.2,
+      type: "tween",
+      useNativeDriver: true,
+    },
+  }),
+  exit: {
+    opacity: 0,
+    y: 50,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+      type: "tween",
+      // useNativeDriver: true,
+    },
+  },
+};
+
+const Projects: React.FC<ProjectsSectionProps> = ({
+  isProjectsInView,
+  isMobile,
+  backgroundGradient,
+}) => {
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
+  const itemsRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const isTouchDevice = useIsTouchDevice();
+
+  const projectsControls = useAnimationControls();
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  const cursorX = useSpring(0, { stiffness: 200, damping: 50 });
+  const cursorY = useSpring(0, { stiffness: 200, damping: 50 });
+
+  const projects: Project[] = [
+    {
+      number: "01",
+      title: "Seashell",
+      role: "Full Stack Developer",
+      timestamp: "2023 - Current",
+      location: "🇺🇸 US, Remote",
+      image: "/work/core/seashell/seashell-hero.png",
+      images: [
+        "/work/core/seashell/dashboard.png",
+        "/work/core/seashell/quotes.png",
+        "/work/core/seashell/individual-product.png",
+        "/work/core/seashell/ai.png",
+        "/work/core/seashell/crm.png",
+        "/work/core/seashell/messages.png",
+        "/work/core/seashell/individual-order.png",
+        "/work/core/seashell/my-earnings.png",
+      ],
+      description:
+        "Packaging marketplace connecting clients, suppliers, and liaisons. Built a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
+      color: "77, 128, 237",
+      technologies: {
+        frontend: "Next.js, TypeScript, Tailwind, Framer Motion",
+        backend: "tRPC, React Query, Drizzle ORM",
+      },
+      link: "https://www.seashellpack.com/",
+    },
+    {
+      number: "02",
+      title: "Invoiceapp",
+      role: "Founder",
+      timestamp: "2022 - Current",
+      location: "🇮🇳 India, Bangalore",
+      image: "/work/core/invoiceapp/invoiceapp-hero.png",
+      images: [
+        "/work/core/invoiceapp/invoices.png",
+        "/work/core/invoiceapp/new-invoice.png",
+        "/work/core/invoiceapp/templates.png",
+        "/work/core/invoiceapp/clients.png",
+        "/work/core/invoiceapp/products.png",
+        "/work/core/invoiceapp/analytics.png",
+        "/work/core/invoiceapp/cmd+k.png",
+      ],
+      description:
+        "Business management platform for invoicing, estimates, and payments. Built a platform for businesses to manage invoices, estimates, payment tracking, and client relationships. Features include prebuilt templates for quick invoice creation, AI-powered invoicing, and workflows designed so any task takes just a few clicks. Added detailed analytics with custom filters and fields, error tracking, financial year switching, and team collaboration.",
+      color: "0, 122, 255",
+      technologies: {
+        frontend: "Next.js, TypeScript, Tailwind",
+        backend: "tRPC, React Query, Drizzle ORM",
+      },
+      link: "https://www.invoiceapp.io/",
+    },
+    {
+      number: "03",
+      title: "Compsoft Technologies",
+      role: "Web Developer Intern",
+      timestamp: "2022 (3 months)",
+      location: "🇮🇳 India, Bangalore",
+      image: "",
+      images: [],
+      description:
+        "Created small, responsive websites for various clients, implementing modern UI and dynamic features. Collaborated with the team to deliver custom solutions based on client requirements while learning production-grade workflows.",
+      color: "148, 163, 184",
+      technologies: {
+        frontend: "JavaScript, React, Tailwind CSS",
+        backend: "Express, Prisma, MongoDB",
+      },
+      link: "#",
+    },
+  ];
+
+  useEffect(() => {
+    if (isProjectsInView && !hasAnimated) {
+      projectsControls.start("visible");
+      setTimeout(() => {
+        setHasAnimated(true);
+      }, 500);
+    } else if (!isProjectsInView && hasAnimated) {
+      projectsControls.start("hidden");
+      setHasAnimated(false);
+    }
+  }, [isProjectsInView, projectsControls, hasAnimated]);
+
+  // Ensure mobile view is always visible
+  useEffect(() => {
+    if (isMobile || isTouchDevice) {
+      projectsControls.start("visible");
+    }
+  }, [isMobile, isTouchDevice, projectsControls]);
+
+  // ----- Hover effect ----- //
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    },
+    [cursorX, cursorY],
+  );
+
+  const handleScroll = useCallback(() => {
+    setIsScrolling(true);
+    setTimeout(() => setIsScrolling(false), 100); // Debounce scrolling state
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+    if (typeof window === "undefined") return;
+
+    const items = itemsRef.current;
+    if (!items) return;
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+
+    const checkHover = () => {
+      if (isScrolling) {
+        const hoverItem = document.elementFromPoint(
+          cursorX.get(),
+          cursorY.get(),
+        );
+        const projectItem = hoverItem?.closest(".project-item");
+        if (projectItem) {
+          const index = Array.from(items.children).indexOf(
+            projectItem as Element,
+          );
+          setActiveIndex(index);
+        } else {
+          setActiveIndex(-1);
+        }
+      }
+    };
+
+    items.addEventListener("mouseleave", () => {
+      setActiveIndex(-1);
+    });
+
+    const scrollCheckInterval = setInterval(checkHover, 100);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+      clearInterval(scrollCheckInterval);
+    };
+  }, [isMobile, handleMouseMove, handleScroll, cursorX, cursorY, isScrolling]);
+
+  // ----- Overlay ----- //
+
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsOverlayVisible(true);
+  };
+
+  const closeOverlay = () => {
+    setIsContentVisible(false);
+    setTimeout(() => {
+      setIsOverlayVisible(false);
+    }, 800);
+  };
+
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (isOverlayVisible) {
+      lenis?.stop();
+      document.documentElement.style.overflowY = "hidden";
+      const timer = setTimeout(() => {
+        setIsContentVisible(true);
+      }, 800);
+      return () => clearTimeout(timer);
+    } else {
+      lenis?.start();
+      document.documentElement.style.overflowY = "auto";
+    }
+  }, [isOverlayVisible]);
+
+  // ----- Image Preloading ----- //
+
+  useEffect(() => {
+    projects.map((project: Project) => {
+      const img = new Image();
+      img.src = project.image;
+
+      project.images.forEach((imagePath) => {
+        const img2 = new Image();
+        img2.src = imagePath;
+      });
+    });
+  }, []);
+
+  const initialState = isMobile ? "visible" : "hidden";
+
+  return (
+    <motion.div
+      style={{
+        background: backgroundGradient,
+        zIndex: isOverlayVisible ? 20 : 10,
+      }}
+      initial={initialState}
+      animate={projectsControls}
+      className="w-full min-h-screen flex justify-center flex-col items-center relative z-10"
+    >
+      {isTouchDevice || (!isTouchDevice && isMobile) ? (
+        <motion.div className="w-full px-4 py-8">
+          <motion.h2
+            custom={0}
+            variants={fadeInUpVariants}
+            className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
+          >
+            Core Projects
+          </motion.h2>
+
+          {/* Mobile Version: Card like design */}
+          <div className="flex flex-col gap-12 sm:gap-6 w-full mx-auto">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.number}
+                className="w-full flex flex-col items-start cursor-pointer"
+                variants={fadeInUpVariants}
+                onClick={() => handleProjectClick(project)}
+                custom={index + 1}
+              >
+                {project.image ? (
+                  <div
+                    key={project.number}
+                    className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
+                    style={{ backgroundImage: `url('${project.image}')` }}
+                  ></div>
+                ) : (
+                  <div
+                    key={project.number}
+                    className="w-full aspect-[77/44] rounded-xl border border-white/10 bg-gradient-to-br from-neutral-900/80 to-neutral-800/80 flex items-center justify-center"
+                  >
+                    <span className="poppins-light text-xs sm:text-sm text-gray-400">
+                      Client work – visuals not public
+                    </span>
+                  </div>
+                )}
+                <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
+                  {project.title}
+                </h1>
+                <div className="flex flex-col gap-y-1 w-full text-left mt-1">
+                  <p className="poppins-extralight text-base sm:text-lg text-left">
+                    {project.role}
+                  </p>
+                  <div className="flex flex-row gap-x-3 justify-start">
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.timestamp}
+                    </p>
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.location}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial="hidden"
+          animate={projectsControls}
+          className="max-w-[1000px] w-full flex justify-center flex-col items-center px-4"
+        >
+          <motion.h2
+            custom={0}
+            variants={fadeInUpVariants}
+            className="poppins-light text-3xl tracking-[calc(3rem * 0.02)] mb-10"
+          >
+            Core Projects
+          </motion.h2>
+
+          {hasAnimated && (
+            <AnimatePresence>
+              {activeIndex !== -1 && (
+                <motion.div
+                  ref={galleryRef}
+                  className="fixed w-[385px] h-[200px] overflow-hidden pointer-events-none z-40 rounded-xl"
+                  initial={{ opacity: 0, scale: 0.2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.2 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
+                  style={{
+                    left: cursorX,
+                    top: cursorY,
+                    x: "-50%",
+                    y: "-50%",
+                  }}
+                >
+                  <motion.div
+                    ref={imagesRef}
+                    className="w-full h-[800px] flex flex-col"
+                    animate={{ y: `-${200 * activeIndex}px` }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    {projects.map((project) =>
+                      project.image ? (
+                        <img
+                          key={project.number}
+                          className="w-full h-[200px] object-cover object-center"
+                          src={project.image}
+                        />
+                      ) : (
+                        <div
+                          key={project.number}
+                          className="w-full h-[200px] rounded-xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-800/90 flex items-center justify-center"
+                        >
+                          <span className="poppins-light text-xs text-gray-400">
+                            Client work – visuals not public
+                          </span>
+                        </div>
+                      ),
+                    )}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
+
+          <div
+            ref={itemsRef}
+            className="flex justify-center items-center flex-col w-full"
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.number}
+                className="flex flex-col w-full group project-item cursor-pointer"
+                style={{ willChange: "transform, opacity" }}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => handleProjectClick(project)}
+                variants={fadeInUpVariants}
+                custom={index + 1}
+              >
+                <div className="w-full flex justify-between items-center h-[200px]">
+                  <div className="flex justify-start items-start h-fit gap-x-4">
+                    <p className="poppins-extralight text-2xl leading-none group-hover:text-gray-2 text-gray-3 transition-colors">
+                      {project.number}
+                    </p>
+                    <div className="flex flex-col">
+                      <h1 className="khula-regular text-6xl tracking-[calc(3.75rem * 0.03)] group-hover:text-gray-2 transition-all group-hover:ml-2">
+                        {project.title}
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end pr-2 group-hover:pr-4 transition-all">
+                    <p className="poppins-extralight text-lg group-hover:text-gray-2 transition-all">
+                      {project.role}
+                    </p>
+                    <div className="flex flex-row gap-x-3 mt-1">
+                      <p className="poppins-extralight text-sm text-gray-2 group-hover:text-gray-2 transition-all">
+                        {project.timestamp}
+                      </p>
+                      <p className="poppins-extralight text-sm text-gray-2 group-hover:text-gray-2 transition-all">
+                        {project.location}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <hr className="w-full border-gray-1 group-hover:border-gray-4 transition-colors"></hr>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+
+      <AnimatePresence>
+        {(isOverlayVisible || selectedProject) && (
+          <>
+            <Curve isVisible={isOverlayVisible} />
+            <motion.div
+              className="fixed inset-0 w-full z-[999] flex items-center justify-center"
+              style={{ pointerEvents: isContentVisible ? "auto" : "none" }}
+              initial="hidden"
+              animate={isOverlayVisible ? "visible" : "exit"}
+              exit="exit"
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
+              <AnimatePresence mode="wait">
+                {isContentVisible && selectedProject && (
+                  <Overlay
+                    project={selectedProject}
+                    isMobile={isMobile}
+                    onClose={closeOverlay}
+                  />
+                )}
+              </AnimatePresence>
+            </motion.div>
+            {isContentVisible && (
+              <div className="fixed z-[9999] top-6 right-6 flex flex-col items-end gap-2">
+                <button
+                  onClick={closeOverlay}
+                  className="px-4 py-2 text-white text-xl poppins-regular flex flex-row gap-x-2 items-center cursor-pointer hover:opacity-80 transition-opacity"
+                  aria-label="Close"
+                >
+                  <X size={32} />
+                </button>
+                <span className="text-xs text-gray-2 poppins-light opacity-60">
+                  ESC
+                </span>
+              </div>
+            )}
+          </>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+export default Projects;

@@ -1,128 +1,172 @@
-import Link from "next/link";
+"use client";
 
-type TechCategory = {
-  title: string;
-  items: string[];
-};
+import { useEffect, useState, useRef, useCallback } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import MouseGradient from "./components/MouseGradient";
+import About from "./components/about";
+import { Skills } from "./components/about/Skills";
+import Contact from "./components/contact";
+import Projects from "./components/projects";
+import FrontendWork from "./components/frontend-work";
+import SectionSpacer from "./components/SectionSpacer";
+import { useIsTouchDevice } from "./hooks/useIsTouchDevice";
+import Loader from "./components/Loader";
+import { ReactLenis } from "@studio-freight/react-lenis";
+import { Hero } from "./components/hero";
 
-const techCategories: TechCategory[] = [
-  {
-    title: "Languages",
-    items: ["JavaScript", "TypeScript", "C/C++"],
-  },
-  {
-    title: "Frontend",
-    items: ["Next.js", "React", "Tailwind CSS", "Vite"],
-  },
-  {
-    title: "UI & Motion",
-    items: ["Framer Motion", "Radix UI", "Shadcn UI"],
-  },
-  {
-    title: "Backend & APIs",
-    items: ["Express", "Node.js", "tRPC"],
-  },
-  {
-    title: "Databases",
-    items: ["MongoDB", "MySQL", "PostgreSQL", "Redis"],
-  },
-  {
-    title: "ORMs & State",
-    items: ["Drizzle ORM", "Mongoose", "Prisma", "React Query", "Zod", "Zustand"],
-  },
-  {
-    title: "Infra & Tooling",
-    items: ["Docker", "GitHub Actions", "PlanetScale", "Supabase", "Vercel"],
-  },
-];
+function App() {
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
+  const frontendWorkRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const rootElementRef = useRef<HTMLElement | null>(null);
 
-export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const checkIsMobile = () => {
+      setIsMobile(typeof window !== "undefined" && window.innerWidth <= 768);
+    };
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    rootElementRef.current =
+      document.getElementById("root") ??
+      document.getElementById("__next") ??
+      document.querySelector("main");
+  }, []);
+
+  const isTouchDevice = useIsTouchDevice();
+
+  // ----- Scroll animations ----- //
+  const { scrollYProgress } = useScroll();
+  const backgroundGradient = useMotionValue("#000000");
+  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const artPlumOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+
+  const handleScroll = useCallback(
+    (latest: number) => {
+      requestAnimationFrame(() => {
+        if (typeof document === "undefined") return;
+        const progress = !isMobile
+          ? Math.max(0, Math.min((latest - 0.1) / 0.1, 1))
+          : Math.max(0, Math.min((latest - 0.03) / 0.1, 1));
+
+        const r = Math.round(255 * progress);
+        backgroundGradient.set(`rgb(${r}, ${r}, ${r})`);
+
+        const rootElement = rootElementRef.current;
+        if (progress < 0.1) {
+          document.body.style.backgroundColor = "#000000";
+          if (rootElement) rootElement.style.backgroundColor = "#000000";
+          document.documentElement.style.backgroundColor = "#000000";
+        } else if (progress > 0.3) {
+          document.body.style.backgroundColor = "#ffffff";
+          if (rootElement) rootElement.style.backgroundColor = "#ffffff";
+          document.documentElement.style.backgroundColor = "#ffffff";
+        }
+      });
+    },
+    [isMobile],
+  );
+
+  useMotionValueEvent(scrollYProgress, "change", handleScroll);
+
+  // ----- Loading Animation ----- //
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="font-semibold text-lg">Mohammed Danish</h1>
-      <p className="text-sm text-gray-600">Bangalore, India</p>
-      <p className="font-medium text-gray-600 py-5">
-        Building{" "}
-        <Link
-          href="https://invoiceapp.io"
-          className="underline underline-offset-4 hover:text-gray-700 transition-colors"
-        >
-          Invoiceapp.io
-        </Link>
-      </p>
+    <ReactLenis root>
+      <Loader onLoadingComplete={() => setIsLoading(false)} />
 
-      <div className="space-y-6 leading-loose text-gray-700">
-        <p>
-          I am a Full Stack Software Engineer currently working at{" "}
-          <Link
-            href="https://seashellpack.com"
-            className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            Seashell 🇺🇸
-          </Link>
-          , a US-based startup, as a Founding Engineer, and also the founder of{" "}
-          <Link
-            href="https://invoiceapp.io"
-            className="font-medium underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            Invoiceapp
-          </Link>
-          . I enjoy building thoughtful, user-focused products and modern web
-          experiences that make a meaningful impact. I am open to remote work
-          opportunities and enjoy collaborating with teams across different
-          domains.
-        </p>
+      <div style={{ visibility: isLoading ? "hidden" : "visible" }}>
+        <MouseGradient isMobile={isMobile} />
 
-        <p>
-          I graduated in <span className="font-medium">2024</span> with a BTech
-          in Computer Science and Engineering. In{" "}
-          <span className="font-medium">2023</span>, I joined Seashell as a
-          Founding Engineer, building a software platform that serves as
-          packaging's three-sided marketplace in the United States. In{" "}
-          <span className="font-medium">2022</span>, I started working on
-          Invoiceapp, a platform to create invoices and track payments.
-        </p>
+        {/* Hero Section */}
+        <Hero
+          isLoading={isLoading}
+          isMobile={isMobile}
+          backgroundGradient={backgroundGradient}
+          heroContentOpacity={heroContentOpacity}
+          artPlumOpacity={artPlumOpacity}
+        />
 
-        <section aria-labelledby="tech-stack-heading" className="space-y-2">
-          <h2 id="tech-stack-heading" className="font-semibold text-gray-600">
-            Web technologies I use
-          </h2>
+        {/* about section */}
+        <div ref={aboutRef} id="about">
+          <About
+            isAboutInView={useInView(aboutRef, { amount: 0.3 })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
 
-          <div className="text-gray-600">
-            {techCategories.map(({ title, items }) => (
-              <p key={title}>
-                <span className="font-medium text-gray-700">{title}:</span>{" "}
-                {items.join(", ")}
-              </p>
-            ))}
-          </div>
-        </section>
+        {/* skills section */}
+        <div ref={skillsRef} id="skills">
+          <Skills
+            isSkillsInView={useInView(skillsRef, { amount: 0.2 })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
 
-        <p>
-          You can find me on{" "}
-          <Link
-            href="https://github.com/danish027"
-            className="underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            GitHub
-          </Link>
-          {" "}and{" "}
-          <Link
-            href="https://www.linkedin.com/in/danish027/"
-            className="underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            LinkedIn
-          </Link>
-          , or reach out via{" "}
-          <Link
-            href="mailto:mohammeddanish.dev@gmail.com"
-            className="underline underline-offset-4 hover:text-gray-600 transition-colors"
-          >
-            email
-          </Link>
-          .
-        </p>
+        {/* section spacer */}
+        <SectionSpacer
+          height={isMobile ? 100 : 200}
+          backgroundGradient={backgroundGradient}
+        />
+
+        {/* projects section */}
+        <div ref={projectsRef} id="projects" className="relative">
+          <Projects
+            isProjectsInView={useInView(projectsRef, {
+              amount: isTouchDevice ? 0.1 : 0.3,
+            })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
+
+        {/* section spacer */}
+        <SectionSpacer
+          height={isMobile ? 100 : 200}
+          backgroundGradient={backgroundGradient}
+        />
+
+        {/* frontend work section */}
+        <div ref={frontendWorkRef} id="frontend-work" className="relative">
+          <FrontendWork
+            isFrontendWorkInView={useInView(frontendWorkRef, {
+              amount: isTouchDevice ? 0.1 : 0.3,
+            })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
+
+        {/* contact section */}
+        <div ref={contactRef} id="contact" className="relative">
+          <Contact
+            isContactInView={useInView(contactRef, { amount: 0.5 })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
+        </div>
       </div>
-    </div>
+    </ReactLenis>
   );
 }
+
+export default App;
