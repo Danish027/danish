@@ -113,9 +113,10 @@ function Hero({
         {/* Description */}
         <motion.p
           variants={itemVariants}
-          className="khula-semibold text-white leading-[1.35] text-2xl min-[480px]:text-3xl sm:text-[2.5rem]"
+          className="khula-semibold text-white leading-[1.35] text-2xl min-[480px]:text-3xl sm:text-[2.6rem]"
         >
           Full Stack Engineer building products at{" "}
+          <br className="hidden sm:block" />
           <span className="text-[var(--gray-1)]">
             <Link
               href="https://seashell.com"
@@ -175,19 +176,21 @@ function Hero({
 
         {/* CTA */}
         <motion.div variants={itemVariants} className="mt-8 sm:mt-10">
-          <Magnetic>
-            <button
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="flex items-center gap-2 bg-white text-black rounded-full px-6 py-2 sm:py-3 poppins-medium text-sm hover:bg-[var(--gray-1)] transition-colors duration-300 select-none cursor-pointer"
-            >
-              Let&apos;s Talk
-              <ArrowUpRight size={16} />
-            </button>
-          </Magnetic>
+          <Link href="mailto:mohammeddanish.dev@gmail.com">
+            <Magnetic>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="flex items-center gap-2 bg-white text-black rounded-full px-6 py-2 sm:py-3 poppins-medium text-sm hover:bg-[var(--gray-1)] transition-colors duration-300 select-none cursor-pointer"
+              >
+                Let&apos;s Talk
+                <ArrowUpRight size={16} />
+              </button>
+            </Magnetic>
+          </Link>
         </motion.div>
       </motion.div>
     </motion.div>

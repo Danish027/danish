@@ -71,7 +71,7 @@ const About: React.FC<AboutSectionProps> = ({
       <motion.div
         initial={initialState}
         animate={aboutControls}
-        className="max-w-[1000px] w-full px-6 sm:px-6 md:px-4"
+        className="max-w-[1000px] w-full px-6 sm:px-6 md:px-4 pt-52"
       >
         <motion.h1
           variants={fadeInUpVariants}
