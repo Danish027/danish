@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, Variants } from "framer-motion";
 
 type CurveProps = {
   isVisible: boolean;
@@ -62,7 +62,7 @@ export default function Curve({ isVisible }: CurveProps) {
     L0 ${dimensions.height + curveHeight}
   `;
 
-  const variants = {
+  const variants: Variants = {
     hidden: {
       d: [targetPath, midPath, initialPath],
       transition: {
