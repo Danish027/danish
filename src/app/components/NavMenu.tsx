@@ -64,7 +64,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
 
       {/* Navigation Menu */}
       <motion.div
-        className="fixed right-0 h-screen w-1/3 max-2xl:w-1/2 max-xl:w-2/3 max-md:w-full z-[100] flex flex-col p-6 justify-center max-w-screen-md bg-white overflow-y-auto"
+        className="fixed right-0 h-screen w-1/2 max-2xl:w-1/2 max-xl:w-2/3 max-md:w-full z-[100] flex flex-col p-6 justify-center max-w-screen-md bg-white overflow-y-auto"
         initial="initial"
         animate="animate"
         exit="exit"
@@ -116,13 +116,13 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
                 {[
                   {
                     name: "LinkedIn",
-                    link: "https://linkedin.com/in/ben-böckmann-296293265",
+                    link: "https://www.linkedin.com/in/danish027/",
                   },
-                  {
-                    name: "Instagram",
-                    link: "https://instagram.com/ben.bck_prvt",
-                  },
-                  { name: "Github", link: "https://github.com/bencodes07" },
+                  // {
+                  //   name: "Instagram",
+                  //   link: "https://instagram.com/ben.bck_prvt",
+                  // },
+                  { name: "Github", link: "https://github.com/Danish027/" },
                 ].map((item, index) => (
                   <motion.li
                     key={item.name}
@@ -152,8 +152,9 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
               <ul className="space-y-2">
                 {[
                   { name: "About Me", id: "about" },
+                  { name: "Skills", id: "skills" },
                   { name: "Projects", id: "projects" },
-                  /* { name: "Experience", id: "about" }, */
+                  { name: "Frontend Work", id: "frontend-work" },
                   { name: "Contact", id: "contact" },
                 ].map((item, index) => (
                   <motion.li
@@ -189,8 +190,11 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
           transition={{ delay: 0.5, duration: 0.3 }}
         >
           <p className="text-sm text-gray-600">Get in touch</p>
-          <a href="mailto:info@bencodes.de" className="text-lg hover:underline">
-            info@bencodes.de
+          <a
+            href="mailto:mohammeddanish.dev@gmail.com"
+            className="text-lg hover:underline"
+          >
+            mohammeddanish.dev@gmail.com
           </a>
         </motion.div>
       </motion.div>

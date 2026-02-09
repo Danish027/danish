@@ -114,7 +114,7 @@ function App() {
         </div>
 
         {/* skills section */}
-        <div ref={skillsRef}>
+        <div ref={skillsRef} id="skills">
           <Skills
             isSkillsInView={useInView(skillsRef, { amount: 0.2 })}
             isMobile={isMobile}
