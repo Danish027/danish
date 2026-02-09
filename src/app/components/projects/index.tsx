@@ -268,49 +268,49 @@ const Projects: React.FC<ProjectsSectionProps> = ({
     >
       {isTouchDevice || (!isTouchDevice && isMobile) ? (
         <motion.div className="w-full px-4 py-8">
-            <motion.h2
-              custom={0}
-              variants={fadeInUpVariants}
-              className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
-            >
-              Selected Projects
-            </motion.h2>
+          <motion.h2
+            custom={0}
+            variants={fadeInUpVariants}
+            className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
+          >
+            Core Projects
+          </motion.h2>
 
-            {/* Mobile Version: Card like design */}
-            <div className="flex flex-col gap-12 sm:gap-6 w-full mx-auto">
-              {projects.map((project, index) => (
-                <motion.div
+          {/* Mobile Version: Card like design */}
+          <div className="flex flex-col gap-12 sm:gap-6 w-full mx-auto">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.number}
+                className="w-full flex flex-col items-start cursor-pointer"
+                variants={fadeInUpVariants}
+                onClick={() => handleProjectClick(project)}
+                custom={index + 1}
+              >
+                <div
                   key={project.number}
-                  className="w-full flex flex-col items-start cursor-pointer"
-                  variants={fadeInUpVariants}
-                  onClick={() => handleProjectClick(project)}
-                  custom={index + 1}
-                >
-                  <div
-                    key={project.number}
-                    className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
-                    style={{ backgroundImage: `url('${project.image}')` }}
-                  ></div>
-                  <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
-                    {project.title}
-                  </h1>
-                  <div className="flex flex-col gap-y-1 w-full text-left mt-1">
-                    <p className="poppins-extralight text-base sm:text-lg text-left">
-                      {project.role}
+                  className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
+                  style={{ backgroundImage: `url('${project.image}')` }}
+                ></div>
+                <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
+                  {project.title}
+                </h1>
+                <div className="flex flex-col gap-y-1 w-full text-left mt-1">
+                  <p className="poppins-extralight text-base sm:text-lg text-left">
+                    {project.role}
+                  </p>
+                  <div className="flex flex-row gap-x-3 justify-start">
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.timestamp}
                     </p>
-                    <div className="flex flex-row gap-x-3 justify-start">
-                      <p className="poppins-extralight text-sm text-gray-2">
-                        {project.timestamp}
-                      </p>
-                      <p className="poppins-extralight text-sm text-gray-2">
-                        {project.location}
-                      </p>
-                    </div>
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.location}
+                    </p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       ) : (
         <motion.div
           initial="hidden"
@@ -322,7 +322,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
             variants={fadeInUpVariants}
             className="poppins-light text-3xl tracking-[calc(3rem * 0.02)] mb-10"
           >
-            Selected Projects
+            Core Projects
           </motion.h2>
 
           {hasAnimated && (
