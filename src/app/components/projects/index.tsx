@@ -22,10 +22,11 @@ type ProjectsSectionProps = {
 export type Project = {
   number: string;
   title: string;
-  category: string;
-  year: string;
+  role: string;
+  timestamp: string;
+  location: string;
   image: string;
-  imageDetail: string;
+  images: string[];
   description: string;
   technologies: { frontend: string; backend: string };
   color: string;
@@ -79,66 +80,54 @@ const Projects: React.FC<ProjectsSectionProps> = ({
   const projects: Project[] = [
     {
       number: "01",
-      title: "MeetMate",
-      category: "Web Development / Design",
-      year: "2024-25",
-      image: "./img/meetmate/landing.webp",
-      imageDetail: "./img/meetmate/dashboard.webp",
+      title: "Seashell",
+      role: "Full Stack Developer",
+      timestamp: "2023 - Current",
+      location: "🇺🇸 US, Remote",
+      image: "/work/core/seashell/seashell-hero.png",
+      images: [
+        "/work/core/seashell/dashboard.png",
+        "/work/core/seashell/quotes.png",
+        "/work/core/seashell/individual-product.png",
+        "/work/core/seashell/ai.png",
+        "/work/core/seashell/crm.png",
+        "/work/core/seashell/messages.png",
+        "/work/core/seashell/individual-order.png",
+        "/work/core/seashell/my-earnings.png",
+      ],
       description:
-        "MeetMate is a web application streamlining appointment management for businesses and clients. It simplifies scheduling, allowing clients to book with various companies while businesses manage availability efficiently. This approach reduces time spent on booking and organizing appointments for all parties.",
+        "Packaging marketplace connecting clients, suppliers, and liaisons. Built a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
       color: "77, 128, 237",
       technologies: {
-        frontend: "NextJS, TailwindCSS, ThreeJS",
-        backend: "Spring Boot, GraphQL, PostgreSQL, MongoDB",
+        frontend: "Next.js, TypeScript, Tailwind, Framer Motion",
+        backend: "tRPC, React Query, Drizzle ORM",
       },
-      link: "https://github.com/informatik-projekt-kurs",
+      link: "https://www.seashellpack.com/",
     },
     {
       number: "02",
-      title: "fishtrack.",
-      category: "iOS Development / Product Design",
-      year: "2023-24",
-      image: "./img/fishtrack/preview.webp",
-      imageDetail: "./img/fishtrack/mockup.webp",
+      title: "Invoiceapp",
+      role: "Founder",
+      timestamp: "2022 - Current",
+      location: "🇮🇳 India, Bangalore",
+      image: "/work/core/invoiceapp/invoiceapp-hero.png",
+      images: [
+        "/work/core/invoiceapp/invoices.png",
+        "/work/core/invoiceapp/new-invoice.png",
+        "/work/core/invoiceapp/templates.png",
+        "/work/core/invoiceapp/clients.png",
+        "/work/core/invoiceapp/products.png",
+        "/work/core/invoiceapp/analytics.png",
+        "/work/core/invoiceapp/cmd+k.png",
+      ],
       description:
-        "fishtrack is an iOS app for fishing enthusiasts to log and analyze their catches. It extracts date and location from photos, allows users to add fish details, and provides filtering options. Anglers can easily track their catches and view statistics, gaining insights into their fishing patterns over time.",
+        "Business management platform for invoicing, estimates, and payments. Built a platform for businesses to manage invoices, estimates, payment tracking, and client relationships. Features include prebuilt templates for quick invoice creation, AI-powered invoicing, and workflows designed so any task takes just a few clicks. Added detailed analytics with custom filters and fields, error tracking, financial year switching, and team collaboration.",
+      color: "0, 122, 255",
       technologies: {
-        frontend: "Swift, SwiftUI, UIKit",
-        backend: "Supabase",
+        frontend: "Next.js, TypeScript, Tailwind",
+        backend: "tRPC, React Query, Drizzle ORM",
       },
-      color: "0 122 255",
-      link: "https://github.com/bencodes07/fishtrackMobile",
-    },
-    {
-      number: "03",
-      title: "TCG-Home",
-      category: "Frontend Development",
-      year: "2021-Now",
-      image: "./img/tcg/landing.webp",
-      imageDetail: "./img/tcg/collection.webp",
-      description: `TCG Home is an innovative online platform transforming the global niche market of collectible card games like "Magic: The Gathering". This project moves such games into the digital era by creating a comprehensive seamless portal where collecting, playing, and trading can take place.`,
-      technologies: {
-        frontend: "VueJS, Typescript, GraphQL",
-        backend: "Not Involved",
-      },
-      color: "121 35 208",
-      link: "https://tcg-home.com",
-    },
-    {
-      number: "04",
-      title: "Portfolio",
-      category: "Web Development",
-      year: "2024",
-      image: "./img/portfolio/landing.webp",
-      imageDetail: "./img/portfolio/about.webp",
-      description:
-        "This portfolio showcases a range of web development projects, demonstrating proficiency in creating practical, user-focused applications. From appointment management systems to specialized mobile apps, each project highlights problem-solving skills and technical expertise. Click the arrow to view the Figma Design",
-      technologies: {
-        frontend: "React, TailwindCSS, Framer Motion",
-        backend: "N/A",
-      },
-      color: "255 255 255",
-      link: "https://www.figma.com/design/fSOLXbVsHPG3k61ffrfFLQ/Portfolio?m=auto&t=KL4Fad6LDLPN60Us-1",
+      link: "https://www.invoiceapp.io/",
     },
   ];
 
@@ -251,8 +240,10 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       const img = new Image();
       img.src = project.image;
 
-      const img2 = new Image();
-      img2.src = project.imageDetail;
+      project.images.forEach((imagePath) => {
+        const img2 = new Image();
+        img2.src = imagePath;
+      });
     });
   }, []);
 
@@ -295,11 +286,16 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                 ></div>
                 <h1 className="khula-regular text-4xl mt-8">{project.title}</h1>
                 <hr />
-                <div className="flex flex-row justify-between items-center w-full">
-                  <p className="poppins-extralight text-lg">
-                    {project.category}
-                  </p>
-                  <p className="poppins-extralight text-lg">{project.year}</p>
+                <div className="flex flex-col gap-y-1 w-full">
+                  <p className="poppins-extralight text-lg">{project.role}</p>
+                  <div className="flex flex-row gap-x-3">
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.timestamp}
+                    </p>
+                    <p className="poppins-extralight text-sm text-gray-2">
+                      {project.location}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -377,13 +373,25 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                     <p className="poppins-extralight text-2xl leading-none group-hover:text-gray-2 text-gray-3 transition-colors">
                       {project.number}
                     </p>
-                    <h1 className="khula-regular text-6xl tracking-[calc(3.75rem * 0.03)] group-hover:text-gray-2 transition-all group-hover:ml-2">
-                      {project.title}
-                    </h1>
+                    <div className="flex flex-col">
+                      <h1 className="khula-regular text-6xl tracking-[calc(3.75rem * 0.03)] group-hover:text-gray-2 transition-all group-hover:ml-2">
+                        {project.title}
+                      </h1>
+                    </div>
                   </div>
-                  <p className="poppins-extralight text-lg pr-2 group-hover:text-gray-2 group-hover:pr-4 transition-all">
-                    {project.category}
-                  </p>
+                  <div className="flex flex-col items-end pr-2 group-hover:pr-4 transition-all">
+                    <p className="poppins-extralight text-lg group-hover:text-gray-2 transition-all">
+                      {project.role}
+                    </p>
+                    <div className="flex flex-row gap-x-3 mt-1">
+                      <p className="poppins-extralight text-sm text-gray-2 group-hover:text-gray-2 transition-all">
+                        {project.timestamp}
+                      </p>
+                      <p className="poppins-extralight text-sm text-gray-2 group-hover:text-gray-2 transition-all">
+                        {project.location}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <hr className="w-full border-gray-1 group-hover:border-gray-4 transition-colors"></hr>
               </motion.div>
@@ -407,17 +415,27 @@ const Projects: React.FC<ProjectsSectionProps> = ({
             >
               <AnimatePresence mode="wait">
                 {isContentVisible && selectedProject && (
-                  <Overlay project={selectedProject} isMobile={isMobile} />
+                  <Overlay
+                    project={selectedProject}
+                    isMobile={isMobile}
+                    onClose={closeOverlay}
+                  />
                 )}
               </AnimatePresence>
             </motion.div>
             {isContentVisible && (
-              <button
-                onClick={closeOverlay}
-                className="fixed z-[9999] top-6 right-6 px-4 py-2 text-white text-xl poppins-regular flex flex-row gap-x-2 items-center cursor-pointer"
-              >
-                <X size={32} />
-              </button>
+              <div className="fixed z-[9999] top-6 right-6 flex flex-col items-end gap-2">
+                <button
+                  onClick={closeOverlay}
+                  className="px-4 py-2 text-white text-xl poppins-regular flex flex-row gap-x-2 items-center cursor-pointer hover:opacity-80 transition-opacity"
+                  aria-label="Close"
+                >
+                  <X size={32} />
+                </button>
+                <span className="text-xs text-gray-2 poppins-light opacity-60">
+                  ESC
+                </span>
+              </div>
             )}
           </>
         )}

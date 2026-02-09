@@ -2,14 +2,27 @@ import { ArrowUpRight } from "lucide-react";
 import { Project } from ".";
 import { motion } from "framer-motion";
 import Magnetic from "../Magnetic";
+import { useEffect } from "react";
 
 export default function Overlay({
   project,
   isMobile,
+  onClose,
 }: {
   project: Project;
   isMobile: boolean;
+  onClose: () => void;
 }) {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
   return (
     <motion.div
       data-lenis-prevent
@@ -76,20 +89,24 @@ export default function Overlay({
               </p>
             </div>
           </div>
-          <img
-            className={`w-full object-cover object-top rounded-2xl select-none ${!project.title.includes("TCG") && "mb-12"}`}
-            style={{
-              border: "1px solid rgb(" + project.color + ")",
-              boxShadow: "0px 0px 16px 8px rgba(" + project.color + ", 0.25)",
-            }}
-            src={project.imageDetail}
-          />
-          {project.title.includes("TCG") && (
-            <p className="my-8 poppins-regular-italic text-base text-gray-2 w-full text-center">
-              Disclaimer: This project was developed during my employment at
-              TCG-Vault, where I contributed as part of the development team.
-            </p>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+            {project.images.map((image, index) => (
+              <motion.img
+                key={index}
+                className="w-full object-cover object-top rounded-2xl select-none"
+                style={{
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow:
+                    "0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)",
+                }}
+                src={image}
+                alt={`${project.title} screenshot ${index + 1}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>
