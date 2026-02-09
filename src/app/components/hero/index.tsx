@@ -43,11 +43,11 @@ const itemVariants: Variants = {
 
 const skills = [
   "TypeScript",
-  "React",
   "Next.js",
   "Node.js",
   "Tailwind CSS",
   "PostgreSQL",
+  "Docker",
 ];
 
 function Hero({
