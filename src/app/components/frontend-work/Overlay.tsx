@@ -3,6 +3,7 @@ import { FrontendWork } from ".";
 import { motion } from "framer-motion";
 import Magnetic from "../Magnetic";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function FrontendWorkOverlay({
   work,
@@ -114,7 +115,7 @@ export default function FrontendWorkOverlay({
               </p>
             </div>
           </div>
-          <img
+          <Image
             className="w-full object-cover object-top rounded-2xl select-none mb-12"
             style={{
               border: "1px solid rgba(255, 255, 255, 0.15)",
@@ -122,6 +123,9 @@ export default function FrontendWorkOverlay({
                 "0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)",
             }}
             src={work.imageDetail}
+            alt={`${work.title} detail`}
+            width={1000}
+            height={1000}
           />
         </div>
       </div>
