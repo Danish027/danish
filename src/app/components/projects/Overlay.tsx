@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { Project } from ".";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Magnetic from "../Magnetic";
 import { useEffect } from "react";
 
@@ -91,20 +92,27 @@ export default function Overlay({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
             {project.images.map((image, index) => (
-              <motion.img
+              <motion.div
                 key={index}
-                className="w-full object-cover object-top rounded-2xl select-none"
-                style={{
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
-                  boxShadow:
-                    "0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)",
-                }}
-                src={image}
-                alt={`${project.title} screenshot ${index + 1}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-              />
+              >
+                <Image
+                  className="w-full object-cover object-top rounded-2xl select-none"
+                  style={{
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    boxShadow:
+                      "0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.1)",
+                  }}
+                  src={image}
+                  alt={`${project.title} screenshot ${index + 1}`}
+                  width={500}
+                  height={350}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </motion.div>
             ))}
           </div>
         </div>

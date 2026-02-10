@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, lazy, Suspense } from "react";
 import {
   motion,
   useInView,
@@ -12,14 +12,15 @@ import {
 import MouseGradient from "./components/MouseGradient";
 import About from "./components/about";
 import { Skills } from "./components/about/Skills";
-import Contact from "./components/contact";
-import Projects from "./components/projects";
-import FrontendWork from "./components/frontend-work";
 import SectionSpacer from "./components/SectionSpacer";
 import { useIsTouchDevice } from "./hooks/useIsTouchDevice";
 import Loader from "./components/Loader";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { Hero } from "./components/hero";
+
+const Projects = lazy(() => import("./components/projects"));
+const FrontendWork = lazy(() => import("./components/frontend-work"));
+const Contact = lazy(() => import("./components/contact"));
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -130,13 +131,15 @@ function App() {
 
         {/* projects section */}
         <div ref={projectsRef} id="projects" className="relative">
-          <Projects
-            isProjectsInView={useInView(projectsRef, {
-              amount: isTouchDevice ? 0.1 : 0.3,
-            })}
-            isMobile={isMobile}
-            backgroundGradient={backgroundGradient}
-          />
+          <Suspense fallback={null}>
+            <Projects
+              isProjectsInView={useInView(projectsRef, {
+                amount: isTouchDevice ? 0.1 : 0.3,
+              })}
+              isMobile={isMobile}
+              backgroundGradient={backgroundGradient}
+            />
+          </Suspense>
         </div>
 
         {/* section spacer */}
@@ -147,22 +150,26 @@ function App() {
 
         {/* frontend work section */}
         <div ref={frontendWorkRef} id="frontend-work" className="relative">
-          <FrontendWork
-            isFrontendWorkInView={useInView(frontendWorkRef, {
-              amount: isTouchDevice ? 0.1 : 0.3,
-            })}
-            isMobile={isMobile}
-            backgroundGradient={backgroundGradient}
-          />
+          <Suspense fallback={null}>
+            <FrontendWork
+              isFrontendWorkInView={useInView(frontendWorkRef, {
+                amount: isTouchDevice ? 0.1 : 0.3,
+              })}
+              isMobile={isMobile}
+              backgroundGradient={backgroundGradient}
+            />
+          </Suspense>
         </div>
 
         {/* contact section */}
         <div ref={contactRef} id="contact" className="relative">
-          <Contact
-            isContactInView={useInView(contactRef, { amount: 0.5 })}
-            isMobile={isMobile}
-            backgroundGradient={backgroundGradient}
-          />
+          <Suspense fallback={null}>
+            <Contact
+              isContactInView={useInView(contactRef, { amount: 0.5 })}
+              isMobile={isMobile}
+              backgroundGradient={backgroundGradient}
+            />
+          </Suspense>
         </div>
       </div>
     </ReactLenis>

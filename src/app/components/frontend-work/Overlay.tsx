@@ -126,6 +126,8 @@ export default function FrontendWorkOverlay({
             alt={`${work.title} detail`}
             width={1000}
             height={1000}
+            loading="lazy"
+            sizes="(max-width: 1000px) 100vw, 1000px"
           />
         </div>
       </div>

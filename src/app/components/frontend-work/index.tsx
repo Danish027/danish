@@ -7,6 +7,7 @@ import {
   useAnimationControls,
   Variants,
 } from "framer-motion";
+import Image from "next/image";
 import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
 import Curve from "../projects/Curve";
 import { X } from "lucide-react";
@@ -82,8 +83,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "Bluum Finance",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/bluum-hero.png",
-      imageDetail: "/work/frontend/bluum.png",
+      image: "/work/frontend/bluum-hero.webp",
+      imageDetail: "/work/frontend/bluum.webp",
       description:
         "Bluum Finance provides embedded investing infrastructure for platforms. It enables financial institutions to add stocks, ETFs, and other asset classes to their apps with a single API. The platform offers global market access, multiple asset classes, and enterprise-grade security with SOC 2 certification.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -97,8 +98,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "CleverApply",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/cleverapply-hero.png",
-      imageDetail: "/work/frontend/cleverapply.png",
+      image: "/work/frontend/cleverapply-hero.webp",
+      imageDetail: "/work/frontend/cleverapply.webp",
       description:
         "CleverApply is an AI-powered enrollment intelligence suite for educational institutions. It provides clarity, automation, and strategic insight to scale international enrollment with a single platform. The solution helps institutions expand their reach, centralize operations, and automate workflows for better student management.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -112,8 +113,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "OdisAI",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/odisaai-hero.png",
-      imageDetail: "/work/frontend/odisaai.png",
+      image: "/work/frontend/odisaai-hero.webp",
+      imageDetail: "/work/frontend/odisaai.webp",
       description:
         "OdisAI is an AI-powered voice assistant for veterinary clinics that never misses a call. The platform handles inbound calls, automates discharge follow-ups, and books appointments 24/7. It integrates with practice management systems and helps clinics recover lost revenue from missed calls while freeing staff to focus on in-clinic care.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -127,8 +128,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "Adravision",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/adravision-hero.png",
-      imageDetail: "/work/frontend/adravision.png",
+      image: "/work/frontend/adravision-hero.webp",
+      imageDetail: "/work/frontend/adravision.webp",
       description:
         "Adravision is a modern dental automation suite powered by AI. The platform improves workflows and extracts insights for dental organizations, providing solutions for payers, clinics, and DSOs. It enhances patient communication with clear visualizations and streamlines clinical operations through automation.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -143,8 +144,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "Frontline Data Solutions",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/frontline-hero.png",
-      imageDetail: "/work/frontend/frontline.png",
+      image: "/work/frontend/frontline-hero.webp",
+      imageDetail: "/work/frontend/frontline.webp",
       description:
         "Frontline Data Solutions provides EHS (Environmental, Health, and Safety) software that simplifies safety management. The platform offers configurable, user-friendly solutions for operational management of change, incident management, employee training, and contractor management. It helps organizations automate repetitive safety tasks and maintain compliance.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -158,8 +159,8 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
       title: "Fulminare Holdings",
       category: "Frontend Development",
       year: "2024",
-      image: "/work/frontend/fulminar-hero.png",
-      imageDetail: "/work/frontend/fulminar.png",
+      image: "/work/frontend/fulminar-hero.webp",
+      imageDetail: "/work/frontend/fulminar.webp",
       description:
         "Fulminare Holdings specializes in crafting subscription-based apps that bridge the gap between viral influence and lasting utility. The company collaborates with top influencers to develop iOS apps that are socially engaging and purpose-driven, focusing on behavioral attribution, adaptive monetization, and AI-powered personalization.",
       technologies: "NextJS, TypeScript, TailwindCSS, Motion",
@@ -279,17 +280,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     }
   }, [isOverlayVisible]);
 
-  // ----- Image Preloading ----- //
-
-  useEffect(() => {
-    frontendWorks.map((work: FrontendWork) => {
-      const img = new Image();
-      img.src = work.image;
-
-      const img2 = new Image();
-      img2.src = work.imageDetail;
-    });
-  }, []);
+  // Images are lazy-loaded via next/image — no eager preloading needed
 
   const initialState = isMobile ? "visible" : "hidden";
 
@@ -325,9 +316,17 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
               >
                 <div
                   key={work.number}
-                  className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
-                  style={{ backgroundImage: `url('${work.image}')` }}
-                ></div>
+                  className="w-full aspect-[77/44] rounded-xl relative overflow-hidden"
+                >
+                  <Image
+                    src={work.image}
+                    alt={work.title}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    loading="lazy"
+                  />
+                </div>
                 <h1 className="khula-regular text-3xl sm:text-4xl mt-6 text-left">
                   {work.title}
                 </h1>
@@ -384,10 +383,15 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
                     {frontendWorks.map((work) => (
-                      <img
+                      <Image
                         key={work.number}
                         className="w-full h-[200px] object-cover object-center"
                         src={work.image}
+                        alt={work.title}
+                        width={385}
+                        height={200}
+                        loading="lazy"
+                        sizes="385px"
                       />
                     ))}
                   </motion.div>

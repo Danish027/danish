@@ -7,6 +7,7 @@ import {
   useAnimationControls,
   Variants,
 } from "framer-motion";
+import Image from "next/image";
 import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
 import Curve from "./Curve";
 import Overlay from "./Overlay";
@@ -84,16 +85,16 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       role: "Full Stack Developer",
       timestamp: "2023 - Current",
       location: "🇺🇸 US, Remote",
-      image: "/work/core/seashell/seashell-hero.png",
+      image: "/work/core/seashell/seashell-hero.webp",
       images: [
-        "/work/core/seashell/dashboard.png",
-        "/work/core/seashell/quotes.png",
-        "/work/core/seashell/individual-product.png",
-        "/work/core/seashell/ai.png",
-        "/work/core/seashell/crm.png",
-        "/work/core/seashell/messages.png",
-        "/work/core/seashell/individual-order.png",
-        "/work/core/seashell/my-earnings.png",
+        "/work/core/seashell/dashboard.webp",
+        "/work/core/seashell/quotes.webp",
+        "/work/core/seashell/individual-product.webp",
+        "/work/core/seashell/ai.webp",
+        "/work/core/seashell/crm.webp",
+        "/work/core/seashell/messages.webp",
+        "/work/core/seashell/individual-order.webp",
+        "/work/core/seashell/my-earnings.webp",
       ],
       description:
         "Packaging marketplace connecting clients, suppliers, and liaisons. Built a platform connecting clients, suppliers, and liaisons in the packaging industry. Built features for product quoting and ordering, client management, real-time chat, CRM dashboard, and analytics. Added team collaboration features that let companies create multiple teams and invite members to work together.",
@@ -110,15 +111,15 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       role: "Founder",
       timestamp: "2022 - Current",
       location: "🇮🇳 India, Bangalore",
-      image: "/work/core/invoiceapp/invoiceapp-hero.png",
+      image: "/work/core/invoiceapp/invoiceapp-hero.webp",
       images: [
-        "/work/core/invoiceapp/invoices.png",
-        "/work/core/invoiceapp/new-invoice.png",
-        "/work/core/invoiceapp/templates.png",
-        "/work/core/invoiceapp/clients.png",
-        "/work/core/invoiceapp/products.png",
-        "/work/core/invoiceapp/analytics.png",
-        "/work/core/invoiceapp/cmd+k.png",
+        "/work/core/invoiceapp/invoices.webp",
+        "/work/core/invoiceapp/new-invoice.webp",
+        "/work/core/invoiceapp/templates.webp",
+        "/work/core/invoiceapp/clients.webp",
+        "/work/core/invoiceapp/products.webp",
+        "/work/core/invoiceapp/analytics.webp",
+        "/work/core/invoiceapp/cmd+k.webp",
       ],
       description:
         "Business management platform for invoicing, estimates, and payments. Built a platform for businesses to manage invoices, estimates, payment tracking, and client relationships. Features include prebuilt templates for quick invoice creation, AI-powered invoicing, and workflows designed so any task takes just a few clicks. Added detailed analytics with custom filters and fields, error tracking, financial year switching, and team collaboration.",
@@ -257,19 +258,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
     }
   }, [isOverlayVisible]);
 
-  // ----- Image Preloading ----- //
-
-  useEffect(() => {
-    projects.map((project: Project) => {
-      const img = new Image();
-      img.src = project.image;
-
-      project.images.forEach((imagePath) => {
-        const img2 = new Image();
-        img2.src = imagePath;
-      });
-    });
-  }, []);
+  // Images are lazy-loaded via next/image — no eager preloading needed
 
   const initialState = isMobile ? "visible" : "hidden";
 
@@ -306,9 +295,17 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                 {project.image ? (
                   <div
                     key={project.number}
-                    className="w-full aspect-[77/44] bg-cover bg-center rounded-xl"
-                    style={{ backgroundImage: `url('${project.image}')` }}
-                  ></div>
+                    className="w-full aspect-[77/44] rounded-xl relative overflow-hidden"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      loading="lazy"
+                    />
+                  </div>
                 ) : (
                   <div
                     key={project.number}
@@ -381,10 +378,15 @@ const Projects: React.FC<ProjectsSectionProps> = ({
                   >
                     {projects.map((project) =>
                       project.image ? (
-                        <img
+                        <Image
                           key={project.number}
                           className="w-full h-[200px] object-cover object-center"
                           src={project.image}
+                          alt={project.title}
+                          width={385}
+                          height={200}
+                          loading="lazy"
+                          sizes="385px"
                         />
                       ) : (
                         <div

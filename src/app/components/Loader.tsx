@@ -44,25 +44,10 @@ const Loader: React.FC<LoaderProps> = ({ onLoadingComplete }) => {
       await new Promise((resolve) => setTimeout(resolve, 300));
 
       animationCompleted.current = true;
-
-      if (document.readyState === "complete") {
-        setShow(false);
-      } else {
-        window.addEventListener("load", handlePageLoad);
-      }
-    };
-
-    const handlePageLoad = () => {
-      if (animationCompleted.current) {
-        setShow(false);
-      }
+      setShow(false);
     };
 
     animateSvg();
-
-    return () => {
-      window.removeEventListener("load", handlePageLoad);
-    };
   }, [controlsM, controlsD]);
 
   // Call onLoadingComplete when the loader starts to fade out
