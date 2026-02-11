@@ -25,6 +25,40 @@ function polar2cart(
   return [x + r * Math.cos(theta), y + r * Math.sin(theta)];
 }
 
+function initCanvas(
+  canvas: HTMLCanvasElement,
+  width: number,
+  height: number,
+  dpiOverride?: number,
+) {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  const dpr = window.devicePixelRatio || 1;
+  const bsr =
+    // @ts-expect-error vendor
+    ctx.webkitBackingStorePixelRatio ||
+    // @ts-expect-error vendor
+    ctx.mozBackingStorePixelRatio ||
+    // @ts-expect-error vendor
+    ctx.msBackingStorePixelRatio ||
+    // @ts-expect-error vendor
+    ctx.oBackingStorePixelRatio ||
+    // @ts-expect-error vendor
+    ctx.backingStorePixelRatio ||
+    1;
+
+  const dpi = dpiOverride || dpr / bsr;
+
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  canvas.width = dpi * width;
+  canvas.height = dpi * height;
+  ctx.scale(dpi, dpi);
+
+  return { ctx, dpi };
+}
+
 function ArtPlum({ isLoading, scrollOpacity }: ArtPlumProps) {
   const opacity = useTransform(scrollOpacity, [0, 1], [0, 1]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -37,18 +71,12 @@ function ArtPlum({ isLoading, scrollOpacity }: ArtPlumProps) {
   const startAnimation = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
 
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const dpr = window.devicePixelRatio || 1;
-
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    canvas.width = dpr * width;
-    canvas.height = dpr * height;
-    ctx.scale(dpr, dpr);
+    const result = initCanvas(canvas, width, height);
+    if (!result) return;
+    const { ctx } = result;
 
     ctx.clearRect(0, 0, width, height);
     ctx.lineWidth = 1;
