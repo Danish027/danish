@@ -81,7 +81,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "01",
       title: "Bluum Finance",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/bluum-hero.webp",
       imageDetail: "/work/frontend/bluum.webp",
@@ -96,7 +96,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "02",
       title: "CleverApply",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/cleverapply-hero.webp",
       imageDetail: "/work/frontend/cleverapply.webp",
@@ -111,7 +111,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "03",
       title: "OdisAI",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/odisaai-hero.webp",
       imageDetail: "/work/frontend/odisaai.webp",
@@ -126,7 +126,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "04",
       title: "Adravision",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/adravision-hero.webp",
       imageDetail: "/work/frontend/adravision.webp",
@@ -142,7 +142,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "05",
       title: "Frontline Data Solutions",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/frontline-hero.webp",
       imageDetail: "/work/frontend/frontline.webp",
@@ -157,7 +157,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
     {
       number: "06",
       title: "Fulminare Holdings",
-      category: "Frontend Development",
+      category: "Frontend Redesign",
       year: "2024",
       image: "/work/frontend/fulminar-hero.webp",
       imageDetail: "/work/frontend/fulminar.webp",
@@ -301,7 +301,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
             variants={fadeInUpVariants}
             className="poppins-light text-3xl sm:text-4xl tracking-[calc(3rem * 0.02)] text-left mb-12"
           >
-            Frontend Work
+            Frontend Redesign Works
           </motion.h2>
 
           {/* Mobile Version: Card like design */}
@@ -353,7 +353,7 @@ const FrontendWork: React.FC<FrontendWorkSectionProps> = ({
             variants={fadeInUpVariants}
             className="poppins-light text-3xl tracking-[calc(3rem * 0.02)] mb-10"
           >
-            Frontend Work
+            Frontend Redesign Works
           </motion.h2>
 
           {hasAnimated && (

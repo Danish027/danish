@@ -84,7 +84,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       title: "Seashell",
       role: "Full Stack Developer",
       timestamp: "2023 - Current",
-      location: "🇺🇸 US, Remote",
+      location: "US, Remote",
       image: "/work/core/seashell/seashell-hero.webp",
       images: [
         "/work/core/seashell/dashboard.webp",
@@ -110,7 +110,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       title: "Invoiceapp",
       role: "Founder",
       timestamp: "2022 - Current",
-      location: "🇮🇳 India, Bangalore",
+      location: "IN, Bangalore",
       image: "/work/core/invoiceapp/invoiceapp-hero.webp",
       images: [
         "/work/core/invoiceapp/invoices.webp",
@@ -135,7 +135,7 @@ const Projects: React.FC<ProjectsSectionProps> = ({
       title: "Compsoft Technologies",
       role: "Web Developer Intern",
       timestamp: "2022 (3 months)",
-      location: "🇮🇳 India, Bangalore",
+      location: "IN, Bangalore",
       image: "",
       images: [],
       description:
