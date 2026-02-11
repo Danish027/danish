@@ -98,7 +98,7 @@ const Contact: React.FC<ContactSectionProps> = ({
         </Magnetic>
         <Magnetic>
           <a
-            href="https://github.com/danish027"
+            href="https://github.com/mushbemo"
             target="_blank"
             className="flex gap-x-1 rounded-full border-black border-2 px-3 py-1 items-center"
           >

@@ -122,7 +122,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
                   //   name: "Instagram",
                   //   link: "https://instagram.com/ben.bck_prvt",
                   // },
-                  { name: "Github", link: "https://github.com/Danish027/" },
+                  { name: "Github", link: "https://github.com/mushbemo" },
                 ].map((item, index) => (
                   <motion.li
                     key={item.name}
