@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback, lazy, Suspense } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import {
   motion,
   useInView,
@@ -29,6 +36,7 @@ function App() {
   const frontendWorkRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const rootElementRef = useRef<HTMLElement | null>(null);
+  const hasHydratedRef = useRef(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -50,6 +58,13 @@ function App() {
       document.querySelector("main");
   }, []);
 
+  useEffect(() => {
+    hasHydratedRef.current = true;
+    return () => {
+      hasHydratedRef.current = false;
+    };
+  }, []);
+
   const isTouchDevice = useIsTouchDevice();
 
   // ----- Scroll animations ----- //
@@ -60,6 +75,7 @@ function App() {
 
   const handleScroll = useCallback(
     (latest: number) => {
+      if (!hasHydratedRef.current) return;
       requestAnimationFrame(() => {
         if (typeof document === "undefined") return;
         const progress = !isMobile
