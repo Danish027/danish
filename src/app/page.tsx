@@ -26,14 +26,14 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import { Hero } from "./components/hero";
 
 const Projects = lazy(() => import("./components/projects"));
-const FrontendWork = lazy(() => import("./components/frontend-work"));
+const FrontendProjects = lazy(() => import("./components/frontend-work"));
 const Contact = lazy(() => import("./components/contact"));
 
 function App() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
-  const frontendWorkRef = useRef<HTMLDivElement>(null);
+  const frontendProjectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const rootElementRef = useRef<HTMLElement | null>(null);
   const hasHydratedRef = useRef(false);
@@ -130,15 +130,6 @@ function App() {
           />
         </div>
 
-        {/* skills section */}
-        <div ref={skillsRef} id="skills">
-          <Skills
-            isSkillsInView={useInView(skillsRef, { amount: 0.2 })}
-            isMobile={isMobile}
-            backgroundGradient={backgroundGradient}
-          />
-        </div>
-
         {/* section spacer */}
         <SectionSpacer
           height={isMobile ? 100 : 200}
@@ -164,17 +155,26 @@ function App() {
           backgroundGradient={backgroundGradient}
         />
 
-        {/* frontend work section */}
-        <div ref={frontendWorkRef} id="frontend-work" className="relative">
+        {/* frontend projects section */}
+        <div ref={frontendProjectsRef} id="frontend-work" className="relative">
           <Suspense fallback={null}>
-            <FrontendWork
-              isFrontendWorkInView={useInView(frontendWorkRef, {
+            <FrontendProjects
+              isFrontendWorkInView={useInView(frontendProjectsRef, {
                 amount: isTouchDevice ? 0.1 : 0.3,
               })}
               isMobile={isMobile}
               backgroundGradient={backgroundGradient}
             />
           </Suspense>
+        </div>
+
+        {/* skills section */}
+        <div ref={skillsRef} id="skills">
+          <Skills
+            isSkillsInView={useInView(skillsRef, { amount: 0.2 })}
+            isMobile={isMobile}
+            backgroundGradient={backgroundGradient}
+          />
         </div>
 
         {/* contact section */}

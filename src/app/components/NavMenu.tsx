@@ -152,9 +152,9 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen, onClose, isMobile }) => {
               <ul className="space-y-2">
                 {[
                   { name: "About Me", id: "about" },
+                  { name: "Core Projects", id: "projects" },
+                  { name: "Frontend", id: "frontend-work" },
                   { name: "Skills", id: "skills" },
-                  { name: "Projects", id: "projects" },
-                  { name: "Frontend Work", id: "frontend-work" },
                   { name: "Contact", id: "contact" },
                 ].map((item, index) => (
                   <motion.li
