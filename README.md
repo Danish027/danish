@@ -8,7 +8,6 @@ I care about building products that solve real problems, feel intuitive to use, 
 
 - Name: Mohammed Danish
 - Location: Bangalore, India
-- Availability: Available for remote work
 - Experience: 2+ years
 - Education: B.Tech in Computer Science & Engineering (Graduated in 2024)
 
@@ -66,31 +65,37 @@ I enjoy building complete end-to-end products where design quality and engineeri
 ## Recent Frontend Work (2024)
 
 ### Bluum Finance
+
 - Live: [bluum-finance.vercel.app](https://bluum-finance.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/dwVb6sFRKhoUR3Pj7e26Lx/Bluum?m=auto&t=r3rTHWJeSfJ4of9I-6)
 - Built a frontend for embedded investing infrastructure enabling platforms to offer stocks, ETFs, and global market access.
 
 ### CleverApply
+
 - Live: [cleverapply.vercel.app](https://cleverapply.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/t2fzi9d77lbveY3j1ski0e/CleverApply?m=auto&t=r3rTHWJeSfJ4of9I-6)
 - Built an AI-powered enrollment intelligence frontend for educational institutions with workflow automation and centralized operations.
 
 ### OdisAI
+
 - Live: [odisai.vercel.app](https://odisai.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/udldQkSAtmvXa2QX4kFBTx/OdisaAI?m=auto&t=r3rTHWJeSfJ4of9I-6)
 - Built a frontend for a veterinary AI voice assistant platform handling calls, follow-ups, and appointment booking.
 
 ### Adravision
+
 - Live: [adravision.vercel.app](https://adravision.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/2eidprH1ESnJeiUnvmzL6T/Adravision?m=auto&t=r3rTHWJeSfJ4of9I-6)
 - Built a modern frontend for a dental automation suite focused on insights, communication, and operational efficiency.
 
 ### Frontline Data Solutions
+
 - Live: [fldata.vercel.app](https://fldata.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/ljyFH6cnmUsvLRHujmO73D/Frontline?m=auto&t=r3rTHWJeSfJ4of9I-1)
 - Built a frontend for EHS software that streamlines incident management, training, contractor management, and compliance workflows.
 
 ### Fulminare Holdings
+
 - Live: [fulminareholdings.vercel.app](https://fulminareholdings.vercel.app/)
 - Design: [Figma](https://www.figma.com/design/EMZEYjn27cBzZqqD0LzRMe/Fulminar?m=auto&t=r3rTHWJeSfJ4of9I-1)
 - Built a frontend for a product studio focused on influencer-led subscription apps with AI-powered personalization.
@@ -98,24 +103,31 @@ I enjoy building complete end-to-end products where design quality and engineeri
 ## Tools & Technologies
 
 ### Languages
+
 JavaScript, TypeScript, C/C++
 
 ### Frontend
+
 Next.js, React, Tailwind CSS, Vite
 
 ### UI and Motion
+
 Framer Motion, Radix UI, Shadcn UI
 
 ### Backend and APIs
+
 Node.js, Express, tRPC
 
 ### Databases
+
 PostgreSQL, MongoDB, MySQL, Redis
 
 ### ORMs and State
+
 Drizzle, Prisma, React Query, Zustand
 
 ### Infra and Tooling
+
 Docker, GitHub Actions, Vercel, Supabase
 
 ## Contact

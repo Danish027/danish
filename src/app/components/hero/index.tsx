@@ -100,14 +100,6 @@ function Hero({
           <span className="poppins-regular text-[var(--gray-1)] tracking-wide text-base">
             Hi, I&apos;m Mohammed Danish
           </span>
-          <span className="hidden sm:inline h-px w-6 bg-[var(--gray-3)] shrink-0" />
-          <span className="flex items-center gap-1.5 text-xs poppins-light text-[var(--gray-2)]">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-            </span>
-            Available for remote work
-          </span>
         </motion.div>
 
         {/* Description */}
