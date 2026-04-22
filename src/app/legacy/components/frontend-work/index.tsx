@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
+import { useIsTouchDevice } from "../../legacy/hooks/useIsTouchDevice";
 import Curve from "../projects/Curve";
 import { X } from "lucide-react";
 import { useLenis } from "@studio-freight/react-lenis";

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { useIsTouchDevice } from "../hooks/useIsTouchDevice";
+import { useIsTouchDevice } from "../legacy/hooks/useIsTouchDevice";
 
 // Utility function for throttling
 function throttle(func: Function, limit: number) {
