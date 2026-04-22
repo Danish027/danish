@@ -1,4 +1,4 @@
-export function One() {
+export function ArabicWordmark() {
   return (
     <svg
       viewBox="70 70 910 370"

@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import { ThemeProvider } from "./components/ThemeProvider";
+import { ThemeProvider } from "./components/theme-provider";
 import "./globals.scss";
 
 export default function RootLayout({
