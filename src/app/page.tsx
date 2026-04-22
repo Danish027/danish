@@ -1,4 +1,6 @@
-import { One } from "./components/1";
+import { BottomActionBar } from "./components/BottomActionBar";
+import { ExperienceList } from "./components/ExperienceList";
+import { HomeHero } from "./components/HomeHero";
 
 const experience = [
   {
@@ -18,45 +20,23 @@ const experience = [
   },
 ];
 
-export default function page() {
+export default function Page() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-white px-6 py-12 text-[#474444] sm:px-10 sm:py-16 lg:px-14 lg:py-20">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-80"
-        aria-hidden="true"
-      />
+    <main className="relative min-h-screen overflow-hidden bg-[#FAFCFD] px-4 pt-10 pb-28 text-[#474444] sm:px-6 dark:bg-[#0F1214] dark:text-[#D5D9DC]">
+      <div className="relative mx-auto flex w-full max-w-[1520px] flex-col items-center gap-12">
+        <HomeHero />
 
-      <div className="relative mx-auto flex w-full max-w-[1180px] flex-col items-center">
-        <div className="w-full max-w-[880px] pt-4 sm:pt-6">
-          <One />
-        </div>
-
-        <div className="mt-7 w-full max-w-[720px] sm:mt-8">
-          <p className="poppins-light max-w-[680px] text-[0.95rem] leading-[1.42] tracking-[-0.035em] text-[#4f4c4c] sm:text-[1.02rem] lg:text-[1.08rem]">
+        <div className="w-full max-w-[640px] px-4">
+          <p className="poppins-light mb-5 text-[13px] font-light leading-[1.6] tracking-[0em] text-[#3a3634] dark:text-[#CCD1D4]">
             Designer who loves bringing ideas to life. I&apos;m passionate about
             building technology that carries emotion and feels deeply human.
           </p>
 
-          <div className="mt-7 space-y-3 sm:mt-8">
-            {experience.map((item) => (
-              <div
-                key={item.title}
-                className="grid grid-cols-[72px_minmax(0,1fr)] gap-x-5 gap-y-1 text-left sm:grid-cols-[88px_150px_minmax(0,1fr)] sm:gap-x-7"
-              >
-                <span className="poppins-light text-[0.8rem] font-light tracking-[-0.03em] text-[#9a9a99] sm:text-[0.88rem]">
-                  {item.year}
-                </span>
-                <span className="poppins-light text-[0.86rem] font-light tracking-[-0.03em] text-[#4c4949] sm:text-[0.95rem]">
-                  {item.title}
-                </span>
-                <span className="poppins-light col-start-2 text-[0.86rem] font-light tracking-[-0.03em] text-[#9a9a99] sm:col-start-auto sm:text-[0.95rem]">
-                  {item.role}
-                </span>
-              </div>
-            ))}
-          </div>
+          <ExperienceList items={experience} />
         </div>
       </div>
+
+      <BottomActionBar />
     </main>
   );
 }

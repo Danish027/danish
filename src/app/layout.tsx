@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
+import { ThemeProvider } from "./components/ThemeProvider";
 import "./globals.scss";
 
 export default function RootLayout({
@@ -7,10 +8,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
-      <body suppressHydrationWarning>
-        <main>{children}</main>
-        <Analytics />
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          <main>{children}</main>
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );
