@@ -8,7 +8,7 @@ import {
   Variants,
 } from "framer-motion";
 import Image from "next/image";
-import { useIsTouchDevice } from "../../legacy/hooks/useIsTouchDevice";
+import { useIsTouchDevice } from "../../hooks/useIsTouchDevice";
 import Curve from "./Curve";
 import Overlay from "./Overlay";
 import { X } from "lucide-react";

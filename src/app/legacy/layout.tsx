@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import "./globals.scss";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mohammeddanish.vercel.app"),
